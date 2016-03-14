@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">ProjGo</string>
+    <string name="action_settings">Settings</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_activity_calendar_view">CalendarViewActivity</string>
+    <string name="action_add">action_add</string>
+    <string name="action_refresh">action_refresh</string>
+</resources>
