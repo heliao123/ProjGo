@@ -20,16 +20,17 @@ public class TaskListFragment extends Fragment {
         //Inflate the fragment layout file
         View rootView =(View)inflater.inflate(R.layout.fragment_tasklistview, container, false);
 
-        ListView taskListView =(ListView)rootView.findViewById(R.id.tasklistView);
+        final ListView taskListView =(ListView)rootView.findViewById(R.id.tasklistView);
 
         //create datasource
         String[] datasource = {"play starcraft","go to the beach","hiking"};
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity().getApplicationContext(),android.R.layout.simple_expandable_list_item_1,datasource);
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity().getApplicationContext(),R.layout.rowlayout,R.id.txtitem,datasource);
         taskListView.setAdapter(adapter);
 
         taskListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                TextView txt =(TextView)view.findViewById(txtitem);
                 Toast.makeText(getActivity().getApplicationContext(),view.toString(),Toast.LENGTH_LONG).show();
             }
         });
