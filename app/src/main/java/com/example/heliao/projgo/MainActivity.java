@@ -2,10 +2,14 @@ package com.example.heliao.projgo;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
+
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
@@ -36,52 +40,25 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        CalendarFragment calendarfragment = new CalendarFragment();
+        TaskListFragment tasklistfragment = new TaskListFragment();
+
+        FragmentManager fragmentManager = getFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.add(R.id.calendar_fragmentcontainer,calendarfragment);
+        fragmentTransaction.commit();
 
 
-        //create calendar on the main page
-        calendar = (CalendarView) findViewById(R.id.calendarView);
-        calendar.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
-            @Override
-            public void onSelectedDayChange(CalendarView view, int year, int month, int dayOfMonth) {
-                month++;
-                Toast.makeText(getApplicationContext(), month + "/" + dayOfMonth + "/" + year, Toast.LENGTH_LONG).show();
-                createListDialog(year, month, dayOfMonth);
-
-            }
-        });
+        FragmentManager listviewfm = getFragmentManager();
+        FragmentTransaction listviewft = listviewfm.beginTransaction();
+        listviewft.add(R.id.listview_fragmentcontainer, tasklistfragment);
+        listviewft.commit();
 
 
 
-    }
 
-    public void createListDialog(int year, int month, int date){
 
-        //create list view for tasks and conferences on each day
 
-        todayTask_ListView = new ListView(this);
-
-        String[] items ={"Project","homework1","homework2","homework3","Conference","meeting1","meeting2"};
-
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,R.layout.today_task,R.id.textView,items);
-
-        todayTask_ListView.setAdapter(adapter);
-        todayTask_ListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                ViewGroup vg = (ViewGroup) view;
-                TextView txt = (TextView) vg.findViewById(R.id.textView);
-                Toast.makeText(MainActivity.this, txt.getText().toString(), Toast.LENGTH_LONG).show();
-            }
-        });
-
-        //setup AlertDialog and AlertDialgo Builder
-        AlertDialog.Builder DialogBuilder = new AlertDialog.Builder(MainActivity.this);
-        DialogBuilder.setTitle(month+"/"+date+"/"+year);
-        DialogBuilder.setCancelable(true);
-        DialogBuilder.setPositiveButton("OK",null);
-        DialogBuilder.setView(todayTask_ListView);
-        AlertDialog dialog = DialogBuilder.create();
-        dialog.show();
 
     }
 
