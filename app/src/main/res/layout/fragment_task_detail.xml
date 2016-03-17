@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:layout_width="200dp"
+        android:layout_height="50dp"
+        android:textSize="20dp"
+        android:textColor="#000"
+        android:text="New Text"
+        android:id="@+id/taskname"
+        android:layout_marginTop="47dp"
+        android:layout_alignParentTop="true"
+        android:layout_toRightOf="@+id/taskLabel"
+        android:layout_toEndOf="@+id/taskLabel" />
+
+    <TextView
+        android:layout_width="150dp"
+        android:layout_height="50dp"
+        android:textSize="20dp"
+        android:textColor="#000"
+        android:layout_marginLeft="10dp"
+        android:text="Task:"
+        android:id="@+id/taskLabel"
+        android:layout_gravity="center_horizontal"
+        android:layout_alignTop="@+id/taskname"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:layout_width="150dp"
+        android:layout_height="50dp"
+        android:textSize="20dp"
+        android:textColor="#000"
+        android:text="Duration:"
+        android:id="@+id/durationLabel"
+        android:layout_below="@+id/taskname"
+        android:layout_alignLeft="@+id/taskLabel"
+        android:layout_alignStart="@+id/taskLabel" />
+
+    <TextView
+        android:layout_width="200dp"
+        android:layout_height="50dp"
+        android:textSize="20dp"
+        android:textColor="#000"
+        android:text="New Text"
+        android:id="@+id/textView2"
+        android:layout_below="@+id/taskname"
+        android:layout_toRightOf="@+id/taskLabel"
+        android:layout_toEndOf="@+id/taskLabel" />
+
+    <TextView
+        android:layout_width="150dp"
+        android:layout_height="50dp"
+        android:textSize="20dp"
+        android:textColor="#000"
+        android:text="Description:"
+        android:id="@+id/descripLabel"
+        android:layout_below="@+id/durationLabel"
+        android:layout_alignLeft="@+id/durationLabel"
+        android:layout_alignStart="@+id/durationLabel" />
+
+    <TextView
+        android:layout_width="200dp"
+        android:layout_height="50dp"
+        android:textSize="20dp"
+        android:textColor="#000"
+        android:text="New Text"
+        android:id="@+id/textView4"
+        android:layout_alignTop="@+id/descripLabel"
+        android:layout_alignLeft="@+id/textView2"
+        android:layout_alignStart="@+id/textView2"
+        android:layout_above="@+id/textView6" />
+
+    <TextView
+        android:layout_width="150dp"
+        android:layout_height="50dp"
+        android:textSize="20dp"
+        android:textColor="#000"
+        android:text="People:"
+        android:id="@+id/peopleLabel"
+        android:layout_below="@+id/descripLabel"
+        android:layout_toLeftOf="@+id/textView6"
+        android:layout_toStartOf="@+id/textView6"
+        android:layout_marginTop="82dp" />
+
+    <TextView
+        android:layout_width="200dp"
+        android:layout_height="50dp"
+        android:textSize="20dp"
+        android:textColor="#000"
+        android:text="New Text"
+        android:id="@+id/textView6"
+        android:layout_alignTop="@+id/peopleLabel"
+        android:layout_alignLeft="@+id/textView4"
+        android:layout_alignStart="@+id/textView4"
+        android:layout_above="@+id/buttonDone" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Done"
+        android:id="@+id/buttonDone"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="32dp" />
+</RelativeLayout>

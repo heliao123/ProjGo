@@ -2,14 +2,12 @@ package com.example.heliao.projgo;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
-
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
-
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
@@ -22,16 +20,17 @@ import android.widget.CalendarView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import java.util.Calendar;
 
-public class MainActivity extends AppCompatActivity {
+public final class MainActivity extends AppCompatActivity implements FragmentConnector{
 
-    private CalendarView calendar;
-    ListView todayTask_ListView;
-    private int mYear;
-    private int mMonth;
-    private int mDay;
+    CalendarFragment calendarfragment;
+    TaskListFragment tasklistfragment;
+    TaskDetailFragment taskDetailFragment;
+    FragmentManager fragmentManager_main;
+    FragmentTransaction fragmentTransaction_main;
+    ListView addlist;
+    MainFragment mainFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,30 +39,28 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        CalendarFragment calendarfragment = new CalendarFragment();
-        TaskListFragment tasklistfragment = new TaskListFragment();
-
-        FragmentManager fragmentManager = getFragmentManager();
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.add(R.id.calendar_fragmentcontainer,calendarfragment);
-        fragmentTransaction.commit();
-
-
-        FragmentManager listviewfm = getFragmentManager();
-        FragmentTransaction listviewft = listviewfm.beginTransaction();
-        listviewft.add(R.id.listview_fragmentcontainer, tasklistfragment);
-        listviewft.commit();
-
-
-
-
-
-
+        mainFragment = new MainFragment();
+        fragmentManager_main = getFragmentManager();
+        fragmentTransaction_main = fragmentManager_main.beginTransaction();
+        fragmentTransaction_main.add(R.id.content_frame, mainFragment);
+        fragmentTransaction_main.commit();
 
     }
 
+    // this gets called by the calendar fragment when the user clicks the date
+    @Override
+    public void getValueFromFragmentUsingInterface(int year, int month, int day) {
+        tasklistfragment = (TaskListFragment) getFragmentManager().findFragmentById(R.id.listview_fragmentcontainer);
+        tasklistfragment.updateinfo(year,month,day);
 
+    }
 
+    @Override
+    public void getValueFromFragmentUsingInterface(String sourFrag) {
+        taskDetailFragment =(TaskDetailFragment)getFragmentManager().findFragmentById(R.id.content_frame);
+        taskDetailFragment.updateinfo(sourFrag);
+
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -81,6 +78,7 @@ public class MainActivity extends AppCompatActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_add) {
+            createListDialog();
             return true;
         }
 
@@ -90,4 +88,31 @@ public class MainActivity extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
+    public void createListDialog(){
+
+        //create list view for tasks and conferences on each day
+        addlist = new ListView(this);
+        String[] items ={"Project","Task","Conference"};
+        Integer[] icon = new Integer[]{R.drawable.plus};
+        ArrayAdapter<String> adapter = new ArrayAdapterWithIcon(this,items,icon);
+        addlist.setAdapter(adapter);
+        addlist.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                TextView txt = (TextView)view;
+                String x = txt.getText().toString();
+                Toast.makeText(MainActivity.this, txt.getText().toString(), Toast.LENGTH_LONG).show();
+            }
+        });
+        //setup AlertDialog and AlertDialgo Builder
+        AlertDialog.Builder DialogBuilder = new AlertDialog.Builder(MainActivity.this);
+        DialogBuilder.setCancelable(true);
+        DialogBuilder.setPositiveButton("OK",null);
+        DialogBuilder.setView(addlist);
+        AlertDialog dialog = DialogBuilder.create();
+        dialog.show();
+
+    }
+
 }
