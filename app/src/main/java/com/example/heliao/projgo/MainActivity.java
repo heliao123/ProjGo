@@ -27,8 +27,9 @@ public final class MainActivity extends AppCompatActivity implements FragmentCon
     CalendarFragment calendarfragment;
     TaskListFragment tasklistfragment;
     TaskDetailFragment taskDetailFragment;
-    FragmentManager fragmentManager_main;
-    FragmentTransaction fragmentTransaction_main;
+    FragmentManager fragmentManager_main = getFragmentManager();
+    FragmentTransaction fragmentTransaction_main = fragmentManager_main.beginTransaction();
+    AddEventFragment addEventFragment = new AddEventFragment();
     ListView addlist;
     MainFragment mainFragment;
 
@@ -40,8 +41,6 @@ public final class MainActivity extends AppCompatActivity implements FragmentCon
         setSupportActionBar(toolbar);
 
         mainFragment = new MainFragment();
-        fragmentManager_main = getFragmentManager();
-        fragmentTransaction_main = fragmentManager_main.beginTransaction();
         fragmentTransaction_main.add(R.id.content_frame, mainFragment);
         fragmentTransaction_main.commit();
 
@@ -54,6 +53,7 @@ public final class MainActivity extends AppCompatActivity implements FragmentCon
         tasklistfragment.updateinfo(year,month,day);
 
     }
+
 
     @Override
     public void getValueFromFragmentUsingInterface(String sourFrag) {
@@ -97,21 +97,71 @@ public final class MainActivity extends AppCompatActivity implements FragmentCon
         Integer[] icon = new Integer[]{R.drawable.plus};
         ArrayAdapter<String> adapter = new ArrayAdapterWithIcon(this,items,icon);
         addlist.setAdapter(adapter);
-        addlist.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                TextView txt = (TextView)view;
-                String x = txt.getText().toString();
-                Toast.makeText(MainActivity.this, txt.getText().toString(), Toast.LENGTH_LONG).show();
-            }
-        });
         //setup AlertDialog and AlertDialgo Builder
         AlertDialog.Builder DialogBuilder = new AlertDialog.Builder(MainActivity.this);
         DialogBuilder.setCancelable(true);
         DialogBuilder.setPositiveButton("OK",null);
         DialogBuilder.setView(addlist);
-        AlertDialog dialog = DialogBuilder.create();
+        final AlertDialog dialog = DialogBuilder.create();
         dialog.show();
+
+        //Specifiy action about clicking the item in the list
+        addlist.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                switch (position){
+                    //Project
+                    case 0:
+                        Toast.makeText(MainActivity.this, "Project 0", Toast.LENGTH_LONG).show();
+                        FragmentManager projectManager = getFragmentManager();
+                        FragmentTransaction projectTranscation = projectManager.beginTransaction();
+                        projectTranscation.replace(R.id.content_frame,addEventFragment);
+                        projectTranscation.addToBackStack(null);
+                        projectTranscation.commit();
+                        dialog.cancel();
+                        break;
+                    //Task
+                    case 1:
+                        Toast.makeText(MainActivity.this, "Task 1", Toast.LENGTH_LONG).show();
+                        ListView projectlist = new ListView(getApplicationContext());
+                        String [] projects={"Project1","Project2","Project3","Prjoect4"};
+                        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getApplicationContext(),R.layout.add_list_layout,R.id.addList_testview,projects);
+                        projectlist.setAdapter(adapter);
+                        //Set up AlertDialog again
+                        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(MainActivity.this);
+                        dialogBuilder.setCancelable(true);
+                        dialogBuilder.setPositiveButton("OK",null);
+                        dialogBuilder.setView(projectlist);
+                        final AlertDialog taskdialog = dialogBuilder.create();
+                        taskdialog.show();
+                        dialog.cancel();
+
+                        projectlist.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                            @Override
+                            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                                FragmentManager taskManager = getFragmentManager();
+                                FragmentTransaction taskTranscation = taskManager.beginTransaction();
+                                taskTranscation.replace(R.id.content_frame, addEventFragment);
+                                taskTranscation.addToBackStack(null);
+                                taskTranscation.commit();
+                                taskdialog.cancel();
+                            }
+                        });
+
+                        break;
+                    //Conference
+                    case 2:
+                        Toast.makeText(MainActivity.this, "Conference 2", Toast.LENGTH_LONG).show();
+                        FragmentManager conferenceManager = getFragmentManager();
+                        FragmentTransaction conferenceTransaction = conferenceManager.beginTransaction();
+                        conferenceTransaction.replace(R.id.content_frame,addEventFragment);
+                        conferenceTransaction.addToBackStack(null);
+                        conferenceTransaction.commit();
+                        dialog.cancel();
+
+                }
+            }
+        });
 
     }
 

@@ -3,18 +3,18 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TextView
+    <EditText
         android:layout_width="200dp"
         android:layout_height="50dp"
         android:textSize="20dp"
         android:textColor="#000"
         android:text="New Text"
-        android:id="@+id/taskname"
+        android:id="@+id/eventname_edittext"
         android:layout_marginTop="30dp"
+        android:inputType="text"
         android:layout_alignParentTop="true"
         android:layout_toRightOf="@+id/eventLabel"
-        android:layout_toEndOf="@+id/eventLabel"
-        android:gravity="center_vertical" />
+        android:layout_toEndOf="@+id/eventLabel" />
 
     <TextView
         android:layout_width="150dp"
@@ -25,7 +25,7 @@
         android:text="Task:"
         android:id="@+id/eventLabel"
         android:layout_gravity="center_horizontal"
-        android:layout_alignTop="@+id/taskname"
+        android:layout_alignTop="@+id/eventname_edittext"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:gravity="center_vertical" />
@@ -37,22 +37,22 @@
         android:textColor="#000"
         android:text="Duration:"
         android:id="@+id/durationLabel"
-        android:layout_below="@+id/taskname"
+        android:layout_below="@+id/eventname_edittext"
         android:layout_alignLeft="@+id/eventLabel"
         android:layout_alignStart="@+id/eventLabel"
         android:gravity="center_vertical" />
 
-    <TextView
+    <EditText
         android:layout_width="200dp"
         android:layout_height="50dp"
         android:textSize="20dp"
         android:textColor="#000"
         android:text="New Text"
         android:id="@+id/duration_edittext"
-        android:layout_below="@+id/taskname"
+        android:layout_below="@+id/eventname_edittext"
         android:layout_toRightOf="@+id/eventLabel"
         android:layout_toEndOf="@+id/eventLabel"
-        android:gravity="center_vertical" />
+        android:inputType="time" />
 
     <TextView
         android:layout_width="150dp"
@@ -66,7 +66,7 @@
         android:layout_alignStart="@+id/durationLabel"
         android:gravity="center_vertical" />
 
-    <TextView
+    <EditText
         android:layout_width="200dp"
         android:layout_height="50dp"
         android:textSize="20dp"
@@ -77,7 +77,8 @@
         android:layout_alignLeft="@+id/duration_edittext"
         android:layout_alignStart="@+id/duration_edittext"
         android:layout_above="@+id/people_edittext"
-        android:gravity="center_vertical" />
+        android:nestedScrollingEnabled="false"
+        android:inputType="textMultiLine" />
 
     <TextView
         android:layout_width="150dp"
@@ -92,7 +93,7 @@
         android:layout_marginTop="82dp"
         android:gravity="center_vertical" />
 
-    <TextView
+    <EditText
         android:layout_width="200dp"
         android:layout_height="50dp"
         android:textSize="20dp"
@@ -103,7 +104,7 @@
         android:layout_alignLeft="@+id/description_edittext"
         android:layout_alignStart="@+id/description_edittext"
         android:layout_above="@+id/buttonDone"
-        android:gravity="center_vertical" />
+        android:inputType="textMultiLine" />
 
     <Button
         android:layout_width="wrap_content"
@@ -113,4 +114,5 @@
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="32dp" />
+
 </RelativeLayout>
