@@ -9,11 +9,11 @@
         android:textSize="20dp"
         android:textColor="#000"
         android:text="New Text"
-        android:id="@+id/taskname"
+        android:id="@+id/eventname_edittext_displayevent"
         android:layout_marginTop="30dp"
         android:layout_alignParentTop="true"
-        android:layout_toRightOf="@+id/eventLabel"
-        android:layout_toEndOf="@+id/eventLabel"
+        android:layout_toRightOf="@+id/eventLabel_displayevent"
+        android:layout_toEndOf="@+id/eventLabel_displayevent"
         android:gravity="center_vertical" />
 
     <TextView
@@ -23,9 +23,9 @@
         android:textColor="#000"
         android:layout_marginLeft="10dp"
         android:text="Task:"
-        android:id="@+id/eventLabel"
+        android:id="@+id/eventLabel_displayevent"
         android:layout_gravity="center_horizontal"
-        android:layout_alignTop="@+id/taskname"
+        android:layout_alignTop="@+id/eventname_edittext_displayevent"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:gravity="center_vertical" />
@@ -35,11 +35,11 @@
         android:layout_height="50dp"
         android:textSize="20dp"
         android:textColor="#000"
-        android:text="Duration:"
-        android:id="@+id/durationLabel"
-        android:layout_below="@+id/taskname"
-        android:layout_alignLeft="@+id/eventLabel"
-        android:layout_alignStart="@+id/eventLabel"
+        android:text="Start Date"
+        android:id="@+id/startdate_Label_displayevent"
+        android:layout_below="@+id/eventname_edittext_displayevent"
+        android:layout_alignLeft="@+id/eventLabel_displayevent"
+        android:layout_alignStart="@+id/eventLabel_displayevent"
         android:gravity="center_vertical" />
 
     <TextView
@@ -48,10 +48,10 @@
         android:textSize="20dp"
         android:textColor="#000"
         android:text="New Text"
-        android:id="@+id/duration_edittext"
-        android:layout_below="@+id/taskname"
-        android:layout_toRightOf="@+id/eventLabel"
-        android:layout_toEndOf="@+id/eventLabel"
+        android:id="@+id/startdate_edittext_displayevent"
+        android:layout_below="@+id/eventname_edittext_displayevent"
+        android:layout_toRightOf="@+id/eventLabel_displayevent"
+        android:layout_toEndOf="@+id/eventLabel_displayevent"
         android:gravity="center_vertical" />
 
     <TextView
@@ -60,10 +60,10 @@
         android:textSize="20dp"
         android:textColor="#000"
         android:text="Description:"
-        android:id="@+id/descripLabel"
-        android:layout_below="@+id/durationLabel"
-        android:layout_alignLeft="@+id/durationLabel"
-        android:layout_alignStart="@+id/durationLabel"
+        android:id="@+id/descripLabel_displayevent"
+        android:layout_below="@+id/enddateLabel_displayevent"
+        android:layout_alignLeft="@+id/enddateLabel_displayevent"
+        android:layout_alignStart="@+id/enddateLabel_displayevent"
         android:gravity="center_vertical" />
 
     <TextView
@@ -71,13 +71,12 @@
         android:layout_height="50dp"
         android:textSize="20dp"
         android:textColor="#000"
-        android:text="New Text"
-        android:id="@+id/description_edittext"
-        android:layout_alignTop="@+id/descripLabel"
-        android:layout_alignLeft="@+id/duration_edittext"
-        android:layout_alignStart="@+id/duration_edittext"
-        android:layout_above="@+id/people_edittext"
-        android:gravity="center_vertical" />
+        android:id="@+id/description_edittext_displayevent"
+        android:gravity="center_vertical"
+        android:layout_above="@+id/people_edittext_displayevent"
+        android:layout_toRightOf="@+id/startdate_Label_displayevent"
+        android:layout_toEndOf="@+id/startdate_Label_displayevent"
+        android:layout_below="@+id/enddateLabel_displayevent" />
 
     <TextView
         android:layout_width="150dp"
@@ -85,10 +84,10 @@
         android:textSize="20dp"
         android:textColor="#000"
         android:text="People:"
-        android:id="@+id/peopleLabel"
-        android:layout_below="@+id/descripLabel"
-        android:layout_toLeftOf="@+id/people_edittext"
-        android:layout_toStartOf="@+id/people_edittext"
+        android:id="@+id/peopleLabel_displayevent"
+        android:layout_below="@+id/descripLabel_displayevent"
+        android:layout_toLeftOf="@+id/people_edittext_displayevent"
+        android:layout_toStartOf="@+id/people_edittext_displayevent"
         android:layout_marginTop="82dp"
         android:gravity="center_vertical" />
 
@@ -98,19 +97,44 @@
         android:textSize="20dp"
         android:textColor="#000"
         android:text="New Text"
-        android:id="@+id/people_edittext"
-        android:layout_alignTop="@+id/peopleLabel"
-        android:layout_alignLeft="@+id/description_edittext"
-        android:layout_alignStart="@+id/description_edittext"
-        android:layout_above="@+id/buttonDone"
+        android:id="@+id/people_edittext_displayevent"
+        android:layout_alignTop="@+id/peopleLabel_displayevent"
+        android:layout_alignLeft="@+id/description_edittext_displayevent"
+        android:layout_alignStart="@+id/description_edittext_displayevent"
+        android:layout_above="@+id/buttonDone_displayevent"
         android:gravity="center_vertical" />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Done"
-        android:id="@+id/buttonDone"
+        android:id="@+id/buttonDone_displayevent"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="32dp" />
+
+    <TextView
+        android:layout_width="150dp"
+        android:layout_height="50dp"
+        android:text="End Date"
+        android:textSize="20dp"
+        android:textColor="#000"
+        android:id="@+id/enddateLabel_displayevent"
+        android:gravity="center_vertical"
+        android:layout_below="@+id/startdate_Label_displayevent"
+        android:layout_alignLeft="@+id/startdate_Label_displayevent"
+        android:layout_alignStart="@+id/startdate_Label_displayevent" />
+
+    <TextView
+        android:layout_width="200dp"
+        android:layout_height="50dp"
+        android:inputType="date"
+        android:ems="10"
+        android:textSize="20dp"
+        android:id="@+id/enddate_editText__displayevent"
+        android:layout_below="@+id/startdate_Label_displayevent"
+        android:layout_toRightOf="@+id/descripLabel_displayevent"
+        android:layout_toEndOf="@+id/descripLabel_displayevent"
+        android:textColor="#000"
+        android:gravity="center_vertical"/>
 </RelativeLayout>

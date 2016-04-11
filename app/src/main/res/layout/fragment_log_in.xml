@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:layout_width="250dp"
+        android:layout_height="50dp"
+        android:textSize="20dp"
+        android:gravity="center"
+        android:text="ProjGo"
+        android:id="@+id/textView"
+        android:textStyle="bold"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:layout_marginTop="20dp"
+        android:layout_width="200dp"
+        android:layout_height="50dp"
+        android:textSize="20dp"
+        android:textColor="#000"
+        android:text="User Name"
+        android:id="@+id/useridLable"
+        android:gravity="center_vertical"
+        android:layout_below="@+id/imageView"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_toLeftOf="@+id/done_Button"
+        android:layout_toStartOf="@+id/done_Button" />
+
+    <TextView
+        android:layout_marginTop="20dp"
+        android:layout_width="200dp"
+        android:layout_height="50dp"
+        android:textSize="20dp"
+        android:textColor="#000"
+        android:text="Password"
+        android:id="@+id/passwordLabel"
+        android:gravity="center_vertical"
+        android:layout_below="@+id/useridLable"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_toLeftOf="@+id/done_Button"
+        android:layout_toStartOf="@+id/done_Button" />
+
+
+    <EditText
+        android:layout_width="250dp"
+        android:layout_height="50dp"
+        android:id="@+id/userid_editTextt"
+        android:layout_alignBaseline="@+id/useridLable"
+        android:layout_alignBottom="@id/useridLable"
+        android:layout_toRightOf="@id/useridLable"
+        android:layout_toEndOf="@id/useridLable"/>
+
+
+
+    <EditText
+        android:layout_width="250dp"
+        android:layout_height="50dp"
+        android:id="@+id/password_editText"
+        android:layout_alignBottom="@+id/passwordLabel"
+        android:layout_toRightOf="@+id/passwordLabel"
+        android:layout_toEndOf="@+id/passwordLabel"
+        android:password="true"/>
+
+    <Button
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:text="Log In"
+        android:id="@+id/done_Button"
+        android:layout_below="@+id/password_editText"
+        android:layout_centerHorizontal="true" />
+
+    <ImageView
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:id="@+id/imageView"
+        android:src="@drawable/projgo_icon"
+        android:layout_below="@+id/textView"
+        android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="register new accout?"
+        android:id="@+id/user_registration_button"
+        android:layout_below="@+id/done_Button"
+        android:layout_alignLeft="@+id/imageView"
+        android:layout_alignStart="@+id/imageView"
+        android:textStyle="bold|italic"
+        android:linksClickable="true" />
+
+
+</RelativeLayout>

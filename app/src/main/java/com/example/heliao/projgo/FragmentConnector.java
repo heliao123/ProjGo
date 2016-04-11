@@ -6,4 +6,5 @@ package com.example.heliao.projgo;
 public interface FragmentConnector {
     public void getValueFromFragmentUsingInterface(int year,int month, int day);
     public void getValueFromFragmentUsingInterface(String sourFrag);
+    //public void getValueFromFragmentUsingInterface(String username, String userPassword);
 }
