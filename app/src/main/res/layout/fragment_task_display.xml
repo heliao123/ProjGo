@@ -194,19 +194,21 @@
         style="?android:attr/buttonStyleSmall"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Modify"
-        android:id="@+id/modify_displaytask"
-        android:layout_below="@+id/peopleLabel_displaytask"
-        android:layout_alignLeft="@+id/progresslabel_displayTask"
-        android:layout_alignStart="@+id/progresslabel_displayTask" />
+        android:text="delete"
+        android:id="@+id/delete_displaytask"
+        android:layout_alignTop="@+id/buttonDone_displaytask"
+        android:layout_toRightOf="@+id/buttonDone_displaytask"
+        android:layout_toEndOf="@+id/buttonDone_displaytask"
+        android:layout_marginLeft="15dp" />
 
     <Button
         style="?android:attr/buttonStyleSmall"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Delete"
-        android:id="@+id/delete_displaytask"
+        android:text="Modify"
+        android:id="@+id/modify_displaytask"
         android:layout_alignTop="@+id/buttonDone_displaytask"
-        android:layout_alignLeft="@+id/modify_displaytask"
-        android:layout_alignStart="@+id/modify_displaytask" />
+        android:layout_alignLeft="@+id/progresslabel_displayTask"
+        android:layout_alignStart="@+id/progresslabel_displayTask"
+        android:layout_marginRight="20dp" />
 </RelativeLayout>

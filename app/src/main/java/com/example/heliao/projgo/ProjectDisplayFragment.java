@@ -24,8 +24,9 @@ import java.util.HashMap;
  */
 public class ProjectDisplayFragment extends Fragment{
     TextView eventName, eventLabel,eventDescription,eventPeople,eventStartDate,eventEndDate;
-    Button donebutton;
+    Button donebutton,modifyButton,deleteButton;
     ServerDataManager dataManager;
+    Project selectedProject;
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -36,7 +37,11 @@ public class ProjectDisplayFragment extends Fragment{
         eventPeople = (TextView)rootview.findViewById(R.id.people_edittext_displayevent);
         eventStartDate = (TextView)rootview.findViewById(R.id.startdate_edittext_displayevent);
         eventEndDate = (TextView)rootview.findViewById(R.id.enddate_editText__displayevent);
+
+
         donebutton = (Button)rootview.findViewById(R.id.buttonDone_displayevent);
+        modifyButton = (Button) rootview.findViewById(R.id.modify_projectdisplay);
+        deleteButton = (Button) rootview.findViewById(R.id.delete_projectdisplay);
         //final Intent i = new Intent(getActivity().getApplicationContext(),MainActivity.class);
 
         Bundle bundle = this.getArguments();
@@ -47,7 +52,7 @@ public class ProjectDisplayFragment extends Fragment{
 
         switch (eventType){
             case "Project":
-                Project selectedProject = dataManager.projectList.get(eventname);
+                selectedProject = dataManager.projectList.get(eventname);
                 eventName.setText(selectedProject.name);
                 eventDescription.setText(selectedProject.description);
                // List<String> participant = new ArrayList<String>();
@@ -104,6 +109,10 @@ public class ProjectDisplayFragment extends Fragment{
 
             }
         });
+
+        //if(curr)
+
+
 
         return rootview;
     }

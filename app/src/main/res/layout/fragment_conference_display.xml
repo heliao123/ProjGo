@@ -50,7 +50,7 @@
         android:textSize="20dp"
         android:textColor="#000"
         android:text="stardate"
-        android:id="@+id/startdate_edittext_displayconference"
+        android:id="@+id/starttime_edittext_displayconference"
         android:gravity="center_vertical"
         android:layout_above="@+id/enddateLabel_displayconference"
         android:layout_toRightOf="@+id/startdate_Label_displayconference"
@@ -135,7 +135,7 @@
         android:inputType="date"
         android:ems="10"
         android:textSize="20dp"
-        android:id="@+id/enddate_editText__displayconference"
+        android:id="@+id/endtime_editText__displayconference"
         android:layout_below="@+id/startdate_Label_displayconference"
         android:layout_toRightOf="@+id/descripLabel_displayconference"
         android:layout_toEndOf="@+id/descripLabel_displayconference"
@@ -160,7 +160,7 @@
         android:layout_width="200dp"
         android:layout_height="50dp"
         android:text="projectaname"
-        android:id="@+id/projectname_displayconference"
+        android:id="@+id/conDate_displayconference"
         android:textColor="#000"
         android:textSize="20dp"
         android:layout_below="@+id/taskname_edittext_displayconference"
@@ -174,8 +174,10 @@
         android:layout_height="wrap_content"
         android:text="Modify"
         android:id="@+id/modify_displayconference"
-        android:layout_below="@+id/peopleLabel_displayconference"
-        android:layout_toLeftOf="@+id/buttonDone_displayconference" />
+        android:layout_below="@+id/people_edittext_displayconference"
+        android:layout_alignRight="@+id/projectnameLabel_displayconference"
+        android:layout_alignEnd="@+id/projectnameLabel_displayconference"
+        android:layout_marginRight="15dp" />
 
     <Button
         style="?android:attr/buttonStyleSmall"
@@ -183,7 +185,8 @@
         android:layout_height="wrap_content"
         android:text="Delete"
         android:id="@+id/delete_displayconference"
-        android:layout_above="@+id/buttonDone_displayconference"
-        android:layout_alignLeft="@+id/modify_displayconference"
-        android:layout_alignStart="@+id/modify_displayconference" />
+        android:layout_alignTop="@+id/buttonDone_displayconference"
+        android:layout_toRightOf="@+id/buttonDone_displayconference"
+        android:layout_toEndOf="@+id/buttonDone_displayconference"
+        android:layout_marginLeft="15dp" />
 </RelativeLayout>

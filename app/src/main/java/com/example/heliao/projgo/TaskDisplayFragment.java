@@ -24,8 +24,9 @@ import java.util.HashMap;
 public class TaskDisplayFragment extends Fragment {
     TextView taskName, taskDescription,taskPeople,taskStartDate,taskEndDate,taskProjectName;
     EditText taskPrograss;
-    Button donebutton;
+    Button donebutton,modifyButton,deleteButton;
     ServerDataManager dataManager;
+    Task selectedTask;
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -36,16 +37,19 @@ public class TaskDisplayFragment extends Fragment {
         taskPeople = (TextView) rootview.findViewById(R.id.people_edittext_displaytask);
         taskStartDate = (TextView) rootview.findViewById(R.id.startdate_edittext_displaytask);
         taskEndDate = (TextView) rootview.findViewById(R.id.enddate_editText__displaytask);
-        donebutton = (Button) rootview.findViewById(R.id.buttonDone_displayevent);
+        donebutton = (Button) rootview.findViewById(R.id.buttonDone_displaytask);
         taskPrograss=(EditText)rootview.findViewById(R.id.progess_displaytask);
         //final Intent i = new Intent(getActivity().getApplicationContext(),MainActivity.class);
+
+        modifyButton = (Button) rootview.findViewById(R.id.modify_displaytask);
+        deleteButton = (Button) rootview.findViewById(R.id.delete_displaytask);
 
         Bundle bundle = this.getArguments();
         String eventType = bundle.getString("eventtype");
         String eventname = bundle.getString("eventname");
         dataManager = ServerDataManager.getInstance();
 
-        Task selectedTask = dataManager.taskList.get(eventname);
+        selectedTask = dataManager.taskList.get(eventname);
         taskName.setText(selectedTask.name);
         taskDescription.setText(selectedTask.description);
         // List<String> participant = new ArrayList<String>();
@@ -58,6 +62,7 @@ public class TaskDisplayFragment extends Fragment {
         taskEndDate.setText(selectedTask.end_time);
 
         taskProjectName.setText(selectedTask.project.name);
+        taskPrograss.setText(selectedTask.progress);
 
 
 

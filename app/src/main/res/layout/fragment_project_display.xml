@@ -149,17 +149,19 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Modify"
-        android:id="@+id/button"
-        android:layout_below="@+id/peopleLabel_displayevent"
+        android:id="@+id/modify_projectdisplay"
+        android:layout_alignTop="@+id/buttonDone_displayevent"
         android:layout_toLeftOf="@+id/buttonDone_displayevent"
-        android:layout_toStartOf="@+id/buttonDone_displayevent" />
+        android:layout_toStartOf="@+id/buttonDone_displayevent"
+        android:layout_marginRight="20dp" />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Delete"
-        android:id="@+id/button2"
-        android:layout_below="@+id/button"
-        android:layout_toLeftOf="@+id/buttonDone_displayevent"
-        android:layout_toStartOf="@+id/buttonDone_displayevent" />
+        android:id="@+id/delete_projectdisplay"
+        android:layout_alignTop="@+id/buttonDone_displayevent"
+        android:layout_toRightOf="@+id/buttonDone_displayevent"
+        android:layout_toEndOf="@+id/buttonDone_displayevent"
+        android:layout_marginLeft="15dp" />
 </RelativeLayout>
