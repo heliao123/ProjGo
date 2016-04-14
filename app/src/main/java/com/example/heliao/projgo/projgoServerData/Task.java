@@ -14,7 +14,7 @@ public class Task implements Serializable {
      */
     private static final long serialVersionUID = 468408715514705317L;
     public String name,description,id,progress,start_time,end_time;
-    public HashMap<String,User> participant = new HashMap<String,User>();
+    public HashMap<String,String> participant = new HashMap<String,String>();
     public Project project;
     public Date last_update;
     //	SimpleDateFormat onlyDate = new SimpleDateFormat("dd/M/yyyy HH:mm:ss");
@@ -33,15 +33,16 @@ public class Task implements Serializable {
         end_time =et;
         update();
         id = n+last_update.toString();
-    }
+    }/*
     public void add_participant (User u){
         participant.put(u.userId, u);
         update();
-    }
+    }*/
     public void delete_participant (User u){
         participant.remove(u.userId);
         update();
     }
+
     public boolean is_holder (User u){
         if (u.equals(project.holder)){
             return true;

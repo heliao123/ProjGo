@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <EditText
+        android:layout_width="200dp"
+        android:layout_height="50dp"
+        android:textSize="20dp"
+        android:textColor="#000"
+        android:id="@+id/meeting_name_edittext_addevent"
+        android:inputType="text"
+        android:layout_alignParentTop="true"
+        android:layout_toRightOf="@+id/meeting_Label_addevent"
+        android:layout_toEndOf="@+id/meeting_Label_addevent"
+        android:layout_marginTop="20dp" />
+
+    <TextView
+        android:layout_width="150dp"
+        android:layout_height="50dp"
+        android:textSize="20dp"
+        android:textColor="#000"
+        android:text="Conference:"
+        android:id="@+id/meeting_Label_addevent"
+        android:layout_gravity="center_horizontal"
+        android:gravity="center_vertical|right"
+        android:paddingRight="20dp"
+        android:layout_alignTop="@+id/meeting_name_edittext_addevent"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:layout_width="150dp"
+        android:layout_height="50dp"
+        android:textSize="20dp"
+        android:textColor="#000"
+        android:text="Start Time:"
+        android:id="@+id/meeting_start_time_addevent"
+        android:gravity="center_vertical|right"
+        android:paddingRight="20dp"
+        android:layout_below="@+id/meeting_addevent_Date"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <EditText
+        android:layout_width="200dp"
+        android:layout_height="50dp"
+        android:inputType="date|time"
+        android:ems="10"
+        android:id="@+id/meeting_starttime_editText_addevent"
+        android:clickable="true"
+        android:layout_below="@+id/meeting_edittext_Date"
+        android:layout_toRightOf="@+id/meeting_start_time_addevent"
+        android:layout_toEndOf="@+id/meeting_start_time_addevent" />
+
+    <TextView
+        android:layout_width="150dp"
+        android:layout_height="50dp"
+        android:textSize="20dp"
+        android:textColor="#000"
+        android:text="Description:"
+        android:id="@+id/meeting_descripLabel_addevent"
+        android:gravity="center_vertical|right"
+        android:layout_below="@+id/meeting_end_time_textview_addevent"
+        android:layout_alignRight="@+id/meeting_end_time_textview_addevent"
+        android:layout_alignEnd="@+id/meeting_end_time_textview_addevent"
+        android:paddingRight="20dp" />
+
+    <EditText
+        android:layout_width="150dp"
+        android:layout_height="50dp"
+        android:inputType="date|time"
+        android:ems="10"
+        android:id="@+id/meeting_endtime_editText_addevent"
+        android:clickable="true"
+        android:layout_above="@+id/meeting_descripLabel_addevent"
+        android:layout_toRightOf="@+id/meeting_people_edittext_addevent"
+        android:layout_alignRight="@+id/meeting_starttime_editText_addevent"
+        android:layout_alignEnd="@+id/meeting_starttime_editText_addevent" />
+
+    <EditText
+        android:layout_width="200dp"
+        android:layout_height="20dp"
+        android:textSize="20dp"
+        android:textColor="#000"
+        android:id="@+id/meeting_description_edittext_addevent"
+        android:nestedScrollingEnabled="false"
+        android:inputType="textMultiLine"
+        android:layout_toRightOf="@+id/meeting_descripLabel_addevent"
+        android:layout_toEndOf="@+id/meeting_descripLabel_addevent"
+        android:layout_below="@+id/meeting_endtime_editText_addevent"
+        android:layout_above="@+id/meeting_people_textview_addParticipant" />
+
+    <TextView
+        android:layout_width="150dp"
+        android:layout_height="50dp"
+        android:textSize="20dp"
+        android:textColor="#000"
+        android:text="People:"
+        android:id="@+id/meeting_peopleLabel_addevent"
+        android:gravity="center_vertical|right"
+        android:layout_below="@+id/meeting_descripLabel_addevent"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="false"
+        android:layout_marginTop="62dp"
+        android:paddingRight="40dp"
+        />
+
+    <TextView
+        android:layout_width="150dp"
+        android:layout_height="20dp"
+        android:text="Add Participant"
+        android:textSize="15dp"
+        android:textStyle="italic"
+        android:id="@+id/meeting_addParticipantButton"
+        android:gravity="right"
+        android:linksClickable="false"
+        android:clickable="true"
+        android:paddingRight="30dp"
+        android:layout_below="@+id/meeting_people_edittext_addevent"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <EditText
+        android:layout_width="200dp"
+        android:layout_height="50dp"
+        android:textSize="20dp"
+        android:textColor="#000"
+        android:id="@+id/meeting_people_edittext_addevent"
+        android:layout_below="@+id/meeting_peopleLabel_addevent"
+        android:layout_toLeftOf="@+id/meeting_description_edittext_addevent"
+        android:gravity="top"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="20dp" />
+
+    <TextView
+        android:layout_width="150dp"
+        android:layout_height="50dp"
+        android:text="End Time:"
+        android:textSize="20dp"
+        android:textColor="#000"
+        android:id="@+id/meeting_end_time_textview_addevent"
+        android:gravity="center_vertical|right"
+        android:layout_below="@+id/meeting_start_time_addevent"
+        android:paddingRight="20dp" />
+
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/meeting_people_textview_addParticipant"
+        android:layout_toRightOf="@+id/meeting_people_edittext_addevent"
+        android:layout_alignRight="@+id/meeting_description_edittext_addevent"
+        android:layout_alignEnd="@+id/meeting_description_edittext_addevent"
+        android:layout_alignTop="@+id/meeting_peopleLabel_addevent"
+        android:padding="30dp"
+        android:layout_alignBottom="@+id/meeting_addParticipantButton" />
+
+    <TextView
+        android:layout_width="150dp"
+        android:layout_height="50dp"
+        android:textSize="20dp"
+        android:textColor="#000"
+        android:text="Conference Date:"
+        android:id="@+id/meeting_addevent_Date"
+        android:layout_below="@+id/meeting_name_edittext_addevent"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:gravity="right"
+        android:paddingRight="30dp" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="date"
+        android:ems="10"
+        android:id="@+id/meeting_edittext_Date"
+        android:layout_above="@+id/meeting_start_time_addevent"
+        android:layout_alignLeft="@+id/meeting_starttime_editText_addevent"
+        android:layout_alignStart="@+id/meeting_starttime_editText_addevent"
+        android:layout_alignRight="@+id/meeting_description_edittext_addevent"
+        android:layout_alignEnd="@+id/meeting_description_edittext_addevent"
+        android:layout_alignTop="@+id/meeting_addevent_Date" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Done"
+        android:id="@+id/meeting_buttonDone_addevent"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true" />
+
+
+</RelativeLayout>

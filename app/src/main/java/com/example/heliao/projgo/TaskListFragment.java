@@ -13,7 +13,6 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.heliao.projgo.projgoServerData.Conference;
 import com.example.heliao.projgo.projgoServerData.ServerDataManager;
@@ -22,7 +21,6 @@ import com.example.heliao.projgo.projgoServerData.Task;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -33,7 +31,7 @@ import java.util.List;
 public class TaskListFragment extends Fragment {
     TextView tasklistTitle;
     FragmentConnector fragmentConnector;
-    FragmentManager fragmentManager_tasklist;
+    FragmentManager fragmentManager_display;
     ServerDataManager dataManager;
     String[] tasklist={};
     LayoutInflater mInflater;
@@ -77,19 +75,26 @@ public class TaskListFragment extends Fragment {
                 //fragmentConnector.getValueFromFragmentUsingInterface(title);
                 Bundle bundle = new Bundle();
                 if(dataManager.taskList.containsKey(title)){
-                    bundle.putString("eventtype","Task");
+                    bundle.putString("projectname","Task");
                     bundle.putString("eventname",title);
+                    TaskDisplayFragment taskDisplayFragment = new TaskDisplayFragment();
+                    taskDisplayFragment.setArguments(bundle);
+                    fragmentManager_display = getFragmentManager();
+                    FragmentTransaction transaction = fragmentManager_display.beginTransaction();
+                    transaction.replace(R.id.content_frame, taskDisplayFragment);
+                    transaction.addToBackStack(null);
+                    transaction.commit();
                 }else{
                     bundle.putString("eventtype","Conference");
                     bundle.putString("eventname",title);
+                    ConferenceDisplayFragment conferenceDisplayFragment = new ConferenceDisplayFragment();
+                    conferenceDisplayFragment.setArguments(bundle);
+                    fragmentManager_display = getFragmentManager();
+                    FragmentTransaction transaction = fragmentManager_display.beginTransaction();
+                    transaction.replace(R.id.content_frame, conferenceDisplayFragment);
+                    transaction.addToBackStack(null);
+                    transaction.commit();
                 }
-                Fragment taskDetailFragment = new TaskDetailFragment();
-                taskDetailFragment.setArguments(bundle);
-                fragmentManager_tasklist = getFragmentManager();
-                FragmentTransaction transaction = fragmentManager_tasklist.beginTransaction();
-                transaction.replace(R.id.content_frame, taskDetailFragment);
-                transaction.addToBackStack(null);
-                transaction.commit();
             }
         });
 
@@ -130,13 +135,9 @@ public class TaskListFragment extends Fragment {
 
         for (HashMap.Entry<String, Conference> entry : dataManager.conferenceList.entrySet()) {
             try {
-                Date startDate = df.parse(entry.getValue().start_time);
-                Date endDate = df.parse(entry.getValue().end_time);
+                Date conDate = df.parse(entry.getValue().conferencedate);
                 Date currentDate = df.parse(date);
-                startDate = new Date(startDate.getTime() - 1*24*3600*1000);
-                endDate = new Date(endDate.getTime() + 1*24*3600*1000);
-
-                if (currentDate.after(startDate) && currentDate.before(endDate)) {
+                if (currentDate.equals(conDate)) {
                     tasks.add(entry.getValue().name);
                 }
             } catch (ParseException e) {

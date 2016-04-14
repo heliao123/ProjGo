@@ -8,11 +8,12 @@
         android:layout_height="50dp"
         android:textSize="20dp"
         android:textColor="#000"
-        android:id="@+id/eventname_edittext_addevent"
+        android:id="@+id/con_name_edittext_addevent"
         android:inputType="text"
         android:layout_alignParentTop="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+        android:layout_toRightOf="@+id/con_Label_addevent"
+        android:layout_toEndOf="@+id/con_Label_addevent"
+        android:layout_marginTop="20dp" />
 
     <TextView
         android:layout_width="150dp"
@@ -20,10 +21,13 @@
         android:textSize="20dp"
         android:textColor="#000"
         android:text="Task:"
-        android:id="@+id/eventLabel_addevent"
+        android:id="@+id/con_Label_addevent"
         android:layout_gravity="center_horizontal"
-        android:gravity="center_vertical"
-        />
+        android:gravity="center_vertical|right"
+        android:layout_alignParentTop="true"
+        android:layout_toLeftOf="@+id/con_buttonDone_addevent"
+        android:layout_marginTop="20dp"
+        android:paddingRight="20dp" />
 
     <TextView
         android:layout_width="150dp"
@@ -31,21 +35,22 @@
         android:textSize="20dp"
         android:textColor="#000"
         android:text="Start Date:"
-        android:id="@+id/startdate_addevent"
-        android:layout_below="@+id/eventLabel_addevent"
-        android:layout_alignRight="@+id/descripLabel_addevent"
-        android:layout_alignEnd="@+id/descripLabel_addevent" />
+        android:id="@+id/Con_start_time_addevent"
+        android:layout_below="@+id/con_Label_addevent"
+        android:layout_toLeftOf="@+id/con_buttonDone_addevent"
+        android:gravity="center_vertical|right"
+        android:paddingRight="20dp" />
 
     <EditText
         android:layout_width="200dp"
         android:layout_height="50dp"
         android:inputType="date|time"
         android:ems="10"
-        android:id="@+id/startdate_editText_addevent"
-        android:layout_below="@+id/eventname_edittext_addevent"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        />
+        android:id="@+id/con_starttime_editText_addevent"
+        android:layout_below="@+id/con_name_edittext_addevent"
+        android:layout_toRightOf="@+id/con_Label_addevent"
+        android:layout_toEndOf="@+id/con_Label_addevent"
+        android:clickable="true" />
 
     <TextView
         android:layout_width="150dp"
@@ -53,36 +58,38 @@
         android:textSize="20dp"
         android:textColor="#000"
         android:text="Description:"
-        android:id="@+id/descripLabel_addevent"
-        android:gravity="center_vertical"
-        android:layout_below="@+id/enddate_textview_addevent"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:id="@+id/con_descripLabel_addevent"
+        android:gravity="center_vertical|right"
+        android:layout_below="@+id/con_end_time_textview_addevent"
+        android:layout_alignRight="@+id/con_end_time_textview_addevent"
+        android:layout_alignEnd="@+id/con_end_time_textview_addevent"
+        android:paddingRight="20dp" />
 
     <EditText
         android:layout_width="150dp"
         android:layout_height="50dp"
         android:inputType="date|time"
         android:ems="10"
-        android:id="@+id/enddate_editText_addevent"
-        android:layout_alignBottom="@+id/enddate_textview_addevent"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:layout_alignLeft="@+id/startdate_editText_addevent"
-        android:layout_alignStart="@+id/startdate_editText_addevent" />
+        android:id="@+id/con_enddate_editText_addevent"
+        android:layout_alignBottom="@+id/con_end_time_textview_addevent"
+        android:layout_alignLeft="@+id/con_starttime_editText_addevent"
+        android:layout_alignStart="@+id/con_starttime_editText_addevent"
+        android:layout_alignRight="@+id/con_starttime_editText_addevent"
+        android:layout_alignEnd="@+id/con_starttime_editText_addevent"
+        android:clickable="true" />
 
     <EditText
         android:layout_width="200dp"
         android:layout_height="20dp"
         android:textSize="20dp"
         android:textColor="#000"
-        android:id="@+id/description_edittext_addevent"
+        android:id="@+id/con_description_edittext_addevent"
         android:nestedScrollingEnabled="false"
         android:inputType="textMultiLine"
-        android:layout_above="@+id/people_edittext_addevent"
-        android:layout_below="@id/enddate_editText_addevent"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"/>
+        android:layout_toRightOf="@+id/con_descripLabel_addevent"
+        android:layout_toEndOf="@+id/con_descripLabel_addevent"
+        android:layout_below="@+id/con_enddate_editText_addevent"
+        android:layout_above="@+id/con_people_textview_addParticipant" />
 
     <TextView
         android:layout_width="150dp"
@@ -90,30 +97,47 @@
         android:textSize="20dp"
         android:textColor="#000"
         android:text="People:"
-        android:id="@+id/peopleLabel_addevent"
-        android:gravity="center_vertical"
-        android:layout_above="@+id/buttonDone_addevent"
+        android:id="@+id/con_peopleLabel_addevent"
+        android:gravity="center_vertical|right"
+        android:layout_below="@+id/con_descripLabel_addevent"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginBottom="99dp" />
+        android:layout_alignParentStart="false"
+        android:layout_marginTop="62dp"
+        android:paddingRight="40dp"
+        />
+
+    <TextView
+        android:layout_width="150dp"
+        android:layout_height="20dp"
+        android:text="Add Participant"
+        android:textSize="15dp"
+        android:textStyle="italic"
+        android:id="@+id/addParticipantButton"
+        android:gravity="right"
+        android:linksClickable="false"
+        android:clickable="true"
+        android:paddingRight="30dp"
+        android:layout_below="@+id/con_people_edittext_addevent"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 
     <EditText
         android:layout_width="200dp"
-        android:layout_height="200dp"
+        android:layout_height="50dp"
         android:textSize="20dp"
         android:textColor="#000"
-        android:id="@+id/people_edittext_addevent"
-        android:inputType="textMultiLine"
-        android:layout_above="@+id/buttonDone_addevent"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:layout_alignTop="@+id/peopleLabel_addevent" />
+        android:id="@+id/con_people_edittext_addevent"
+        android:layout_below="@+id/con_peopleLabel_addevent"
+        android:layout_toLeftOf="@+id/con_description_edittext_addevent"
+        android:gravity="top"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="20dp" />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Done"
-        android:id="@+id/buttonDone_addevent"
+        android:id="@+id/con_buttonDone_addevent"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="32dp" />
@@ -124,11 +148,25 @@
         android:text="End Date:"
         android:textSize="20dp"
         android:textColor="#000"
-        android:id="@+id/enddate_textview_addevent"
-        android:gravity="center_vertical"
-        android:layout_below="@+id/startdate_editText_addevent"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:id="@+id/con_end_time_textview_addevent"
+        android:gravity="center_vertical|right"
+        android:layout_below="@+id/Con_start_time_addevent"
+        android:layout_alignRight="@+id/Con_start_time_addevent"
+        android:layout_alignEnd="@+id/Con_start_time_addevent"
+        android:paddingRight="20dp" />
+
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/con_people_textview_addParticipant"
+        android:layout_toRightOf="@+id/con_people_edittext_addevent"
+        android:layout_above="@+id/con_buttonDone_addevent"
+        android:layout_alignRight="@+id/con_description_edittext_addevent"
+        android:layout_alignEnd="@+id/con_description_edittext_addevent"
+        android:layout_alignTop="@+id/con_peopleLabel_addevent"
+        android:padding="30dp" />
 
 
 </RelativeLayout>

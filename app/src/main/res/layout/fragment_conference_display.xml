@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:layout_width="200dp"
+        android:layout_height="50dp"
+        android:textSize="20dp"
+        android:textColor="#000"
+        android:text="New Text"
+        android:id="@+id/taskname_edittext_displayconference"
+        android:layout_marginTop="30dp"
+        android:layout_alignParentTop="true"
+        android:layout_toRightOf="@+id/taskLabel_displayconference"
+        android:layout_toEndOf="@+id/taskLabel_displayconference"
+        android:gravity="center_vertical" />
+
+    <TextView
+        android:layout_width="150dp"
+        android:layout_height="50dp"
+        android:textSize="20dp"
+        android:textColor="#000"
+        android:layout_marginLeft="10dp"
+        android:text="Conference"
+        android:id="@+id/taskLabel_displayconference"
+        android:layout_gravity="center_horizontal"
+        android:layout_alignTop="@+id/taskname_edittext_displayconference"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:gravity="center_vertical|right"
+        android:paddingRight="20dp" />
+
+    <TextView
+        android:layout_width="150dp"
+        android:layout_height="50dp"
+        android:textSize="20dp"
+        android:textColor="#000"
+        android:text="Start Time"
+        android:id="@+id/startdate_Label_displayconference"
+        android:gravity="center_vertical|right"
+        android:paddingRight="20dp"
+        android:layout_below="@+id/projectnameLabel_displayconference"
+        android:layout_alignLeft="@+id/projectnameLabel_displayconference"
+        android:layout_alignStart="@+id/projectnameLabel_displayconference" />
+
+    <TextView
+        android:layout_width="200dp"
+        android:layout_height="50dp"
+        android:textSize="20dp"
+        android:textColor="#000"
+        android:text="stardate"
+        android:id="@+id/startdate_edittext_displayconference"
+        android:gravity="center_vertical"
+        android:layout_above="@+id/enddateLabel_displayconference"
+        android:layout_toRightOf="@+id/startdate_Label_displayconference"
+        android:layout_toEndOf="@+id/startdate_Label_displayconference" />
+
+    <TextView
+        android:layout_width="150dp"
+        android:layout_height="50dp"
+        android:textSize="20dp"
+        android:textColor="#000"
+        android:text="Description"
+        android:id="@+id/descripLabel_displayconference"
+        android:layout_below="@+id/enddateLabel_displayconference"
+        android:layout_alignLeft="@+id/enddateLabel_displayconference"
+        android:layout_alignStart="@+id/enddateLabel_displayconference"
+        android:gravity="center_vertical|right"
+        android:paddingRight="20dp" />
+
+    <TextView
+        android:layout_width="200dp"
+        android:layout_height="50dp"
+        android:textSize="20dp"
+        android:textColor="#000"
+        android:id="@+id/description_edittext_displayconference"
+        android:gravity="center_vertical"
+        android:layout_toRightOf="@+id/startdate_Label_displayconference"
+        android:layout_toEndOf="@+id/startdate_Label_displayconference"
+        android:layout_below="@+id/enddateLabel_displayconference"
+        android:layout_alignBottom="@+id/descripLabel_displayconference" />
+
+    <TextView
+        android:layout_width="150dp"
+        android:layout_height="50dp"
+        android:textSize="20dp"
+        android:textColor="#000"
+        android:text="People:"
+        android:id="@+id/peopleLabel_displayconference"
+        android:gravity="center_vertical|right"
+        android:paddingRight="20dp"
+        android:layout_toLeftOf="@+id/people_edittext_displayconference"
+        android:layout_toStartOf="@+id/people_edittext_displayconference"
+        android:layout_below="@+id/descripLabel_displayconference" />
+
+    <TextView
+        android:layout_width="200dp"
+        android:layout_height="50dp"
+        android:textSize="20dp"
+        android:textColor="#000"
+        android:text="New Text"
+        android:id="@+id/people_edittext_displayconference"
+        android:layout_alignTop="@+id/peopleLabel_displayconference"
+        android:layout_alignLeft="@+id/description_edittext_displayconference"
+        android:layout_alignStart="@+id/description_edittext_displayconference"
+        android:layout_above="@+id/buttonDone_displayconference"
+        android:gravity="center_vertical" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Done"
+        android:id="@+id/buttonDone_displayconference"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="32dp" />
+
+    <TextView
+        android:layout_width="150dp"
+        android:layout_height="50dp"
+        android:text="End Time"
+        android:textSize="20dp"
+        android:textColor="#000"
+        android:id="@+id/enddateLabel_displayconference"
+        android:gravity="center_vertical|right"
+        android:layout_below="@+id/startdate_Label_displayconference"
+        android:layout_alignLeft="@+id/startdate_Label_displayconference"
+        android:layout_alignStart="@+id/startdate_Label_displayconference"
+        android:paddingRight="20dp" />
+
+    <TextView
+        android:layout_width="200dp"
+        android:layout_height="50dp"
+        android:inputType="date"
+        android:ems="10"
+        android:textSize="20dp"
+        android:id="@+id/enddate_editText__displayconference"
+        android:layout_below="@+id/startdate_Label_displayconference"
+        android:layout_toRightOf="@+id/descripLabel_displayconference"
+        android:layout_toEndOf="@+id/descripLabel_displayconference"
+        android:textColor="#000"
+        android:gravity="center_vertical"
+        android:text="enddate" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:text="Conference Date"
+        android:textSize="20dp"
+        android:textColor="#000"
+        android:id="@+id/projectnameLabel_displayconference"
+        android:layout_below="@+id/taskname_edittext_displayconference"
+        android:layout_toLeftOf="@+id/buttonDone_displayconference"
+        android:layout_alignLeft="@+id/taskLabel_displayconference"
+        android:layout_alignStart="@+id/taskLabel_displayconference"
+        android:gravity="center_vertical|right" />
+
+    <TextView
+        android:layout_width="200dp"
+        android:layout_height="50dp"
+        android:text="projectaname"
+        android:id="@+id/projectname_displayconference"
+        android:textColor="#000"
+        android:textSize="20dp"
+        android:layout_below="@+id/taskname_edittext_displayconference"
+        android:layout_toRightOf="@+id/taskLabel_displayconference"
+        android:layout_toEndOf="@+id/taskLabel_displayconference"
+        android:layout_alignBottom="@+id/projectnameLabel_displayconference" />
+
+    <Button
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Modify"
+        android:id="@+id/modify_displayconference"
+        android:layout_below="@+id/peopleLabel_displayconference"
+        android:layout_toLeftOf="@+id/buttonDone_displayconference" />
+
+    <Button
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Delete"
+        android:id="@+id/delete_displayconference"
+        android:layout_above="@+id/buttonDone_displayconference"
+        android:layout_alignLeft="@+id/modify_displayconference"
+        android:layout_alignStart="@+id/modify_displayconference" />
+</RelativeLayout>

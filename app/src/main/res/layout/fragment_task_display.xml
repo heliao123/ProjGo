@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:layout_width="200dp"
+        android:layout_height="50dp"
+        android:textSize="20dp"
+        android:textColor="#000"
+        android:text="New Text"
+        android:id="@+id/taskname_edittext_displaytask"
+        android:layout_marginTop="30dp"
+        android:layout_alignParentTop="true"
+        android:layout_toRightOf="@+id/taskLabel_displaytask"
+        android:layout_toEndOf="@+id/taskLabel_displaytask"
+        android:gravity="center_vertical" />
+
+    <TextView
+        android:layout_width="150dp"
+        android:layout_height="50dp"
+        android:textSize="20dp"
+        android:textColor="#000"
+        android:layout_marginLeft="10dp"
+        android:text="Task"
+        android:id="@+id/taskLabel_displaytask"
+        android:layout_gravity="center_horizontal"
+        android:layout_alignTop="@+id/taskname_edittext_displaytask"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:gravity="center_vertical|right"
+        android:paddingRight="20dp" />
+
+    <TextView
+        android:layout_width="150dp"
+        android:layout_height="50dp"
+        android:textSize="20dp"
+        android:textColor="#000"
+        android:text="Start Date"
+        android:id="@+id/startdate_Label_displaytask"
+        android:gravity="center_vertical|right"
+        android:paddingRight="20dp"
+        android:layout_below="@+id/projectnameLabel_displaytask"
+        android:layout_alignLeft="@+id/projectnameLabel_displaytask"
+        android:layout_alignStart="@+id/projectnameLabel_displaytask" />
+
+    <TextView
+        android:layout_width="200dp"
+        android:layout_height="50dp"
+        android:textSize="20dp"
+        android:textColor="#000"
+        android:text="stardate"
+        android:id="@+id/startdate_edittext_displaytask"
+        android:gravity="center_vertical"
+        android:layout_above="@+id/enddateLabel_displaytask"
+        android:layout_toRightOf="@+id/startdate_Label_displaytask"
+        android:layout_toEndOf="@+id/startdate_Label_displaytask" />
+
+    <TextView
+        android:layout_width="150dp"
+        android:layout_height="50dp"
+        android:textSize="20dp"
+        android:textColor="#000"
+        android:text="Description"
+        android:id="@+id/descripLabel_displaytask"
+        android:layout_below="@+id/enddateLabel_displaytask"
+        android:layout_alignLeft="@+id/enddateLabel_displaytask"
+        android:layout_alignStart="@+id/enddateLabel_displaytask"
+        android:gravity="center_vertical|right"
+        android:paddingRight="20dp" />
+
+    <TextView
+        android:layout_width="200dp"
+        android:layout_height="50dp"
+        android:textSize="20dp"
+        android:textColor="#000"
+        android:id="@+id/description_edittext_displaytask"
+        android:gravity="center_vertical"
+        android:layout_toRightOf="@+id/startdate_Label_displaytask"
+        android:layout_toEndOf="@+id/startdate_Label_displaytask"
+        android:layout_below="@+id/enddateLabel_displaytask"
+        android:layout_alignBottom="@+id/descripLabel_displaytask" />
+
+    <TextView
+        android:layout_width="150dp"
+        android:layout_height="50dp"
+        android:textSize="20dp"
+        android:textColor="#000"
+        android:text="People:"
+        android:id="@+id/peopleLabel_displaytask"
+        android:gravity="center_vertical|right"
+        android:paddingRight="20dp"
+        android:layout_below="@+id/progess_displaytask"
+        android:layout_toLeftOf="@+id/people_edittext_displaytask"
+        android:layout_toStartOf="@+id/people_edittext_displaytask" />
+
+    <TextView
+        android:layout_width="200dp"
+        android:layout_height="50dp"
+        android:textSize="20dp"
+        android:textColor="#000"
+        android:text="New Text"
+        android:id="@+id/people_edittext_displaytask"
+        android:layout_alignTop="@+id/peopleLabel_displaytask"
+        android:layout_alignLeft="@+id/description_edittext_displaytask"
+        android:layout_alignStart="@+id/description_edittext_displaytask"
+        android:layout_above="@+id/buttonDone_displaytask"
+        android:gravity="center_vertical" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Done"
+        android:id="@+id/buttonDone_displaytask"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="32dp" />
+
+    <TextView
+        android:layout_width="150dp"
+        android:layout_height="50dp"
+        android:text="End Date"
+        android:textSize="20dp"
+        android:textColor="#000"
+        android:id="@+id/enddateLabel_displaytask"
+        android:gravity="center_vertical|right"
+        android:layout_below="@+id/startdate_Label_displaytask"
+        android:layout_alignLeft="@+id/startdate_Label_displaytask"
+        android:layout_alignStart="@+id/startdate_Label_displaytask"
+        android:paddingRight="20dp" />
+
+    <TextView
+        android:layout_width="200dp"
+        android:layout_height="50dp"
+        android:inputType="date"
+        android:ems="10"
+        android:textSize="20dp"
+        android:id="@+id/enddate_editText__displaytask"
+        android:layout_below="@+id/startdate_Label_displaytask"
+        android:layout_toRightOf="@+id/descripLabel_displaytask"
+        android:layout_toEndOf="@+id/descripLabel_displaytask"
+        android:textColor="#000"
+        android:gravity="center_vertical"
+        android:text="enddate" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:text="ProjectName"
+        android:textSize="20dp"
+        android:textColor="#000"
+        android:id="@+id/projectnameLabel_displaytask"
+        android:layout_below="@+id/taskname_edittext_displaytask"
+        android:layout_toLeftOf="@+id/buttonDone_displaytask"
+        android:layout_alignLeft="@+id/taskLabel_displaytask"
+        android:layout_alignStart="@+id/taskLabel_displaytask"
+        android:gravity="center_vertical|right" />
+
+    <TextView
+        android:layout_width="200dp"
+        android:layout_height="50dp"
+        android:text="projectaname"
+        android:id="@+id/projectname_displaytask"
+        android:textColor="#000"
+        android:textSize="20dp"
+        android:layout_below="@+id/taskname_edittext_displaytask"
+        android:layout_toRightOf="@+id/taskLabel_displaytask"
+        android:layout_toEndOf="@+id/taskLabel_displaytask"
+        android:layout_alignBottom="@+id/projectnameLabel_displaytask"
+        android:gravity="center_vertical" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Progress"
+        android:textColor="#000"
+        android:textSize="20dp"
+        android:id="@+id/progresslabel_displayTask"
+        android:gravity="right"
+        android:layout_below="@+id/descripLabel_displaytask"
+        android:layout_toLeftOf="@+id/buttonDone_displaytask"
+        android:layout_toStartOf="@+id/buttonDone_displaytask" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/progess_displaytask"
+        android:layout_alignTop="@+id/progresslabel_displayTask"
+        android:layout_toRightOf="@+id/descripLabel_displaytask"
+        android:layout_alignRight="@+id/description_edittext_displaytask"
+        android:layout_alignEnd="@+id/description_edittext_displaytask" />
+
+    <Button
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Modify"
+        android:id="@+id/modify_displaytask"
+        android:layout_below="@+id/peopleLabel_displaytask"
+        android:layout_alignLeft="@+id/progresslabel_displayTask"
+        android:layout_alignStart="@+id/progresslabel_displayTask" />
+
+    <Button
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Delete"
+        android:id="@+id/delete_displaytask"
+        android:layout_alignTop="@+id/buttonDone_displaytask"
+        android:layout_alignLeft="@+id/modify_displaytask"
+        android:layout_alignStart="@+id/modify_displaytask" />
+</RelativeLayout>

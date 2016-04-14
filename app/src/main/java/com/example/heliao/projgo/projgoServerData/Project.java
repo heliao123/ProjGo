@@ -13,7 +13,7 @@ public class Project implements Serializable {
      */
     private static final long serialVersionUID = -5997969113587524502L;
     public String name,description,id, startdate, enddate;
-    public HashMap<String,User> participant = new HashMap<String,User>();
+    public HashMap<String,String> participant = new HashMap<String,String>();
     public HashMap<String,Task> task = new HashMap<String,Task>();
     public Date last_update,start_time,end_time;
     public User holder;
@@ -31,11 +31,11 @@ public class Project implements Serializable {
         enddate =ed;
         update();
         id = n+last_update.toString();
-    }
+    }/*
     public void add_participant (User u){
         participant.put(u.userId, u);
         update();
-    }
+    }*/
     public void add_task (Task t){
         task.put(t.id, t);
         update();

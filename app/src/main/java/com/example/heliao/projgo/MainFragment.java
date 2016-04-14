@@ -4,7 +4,6 @@ import android.app.AlertDialog;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -16,12 +15,9 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.heliao.projgo.projgoServerData.Project;
 import com.example.heliao.projgo.projgoServerData.ServerDataManager;
-
-import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -102,7 +98,7 @@ public class MainFragment extends Fragment {
                         bundle.putString("eventtype", "Project");
                         bundle.putString("eventname",selected);
 
-                        TaskDetailFragment taskDetailFragment = new TaskDetailFragment();
+                        ProjectDisplayFragment taskDetailFragment = new ProjectDisplayFragment();
                         taskDetailFragment.setArguments(bundle);
                         FragmentManager taskManager = getFragmentManager();
                         FragmentTransaction taskTranscation = taskManager.beginTransaction();

@@ -2,7 +2,6 @@ package com.example.heliao.projgo;
 
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.app.Fragment;
@@ -18,21 +17,19 @@ import com.example.heliao.projgo.projgoServerData.ServerDataManager;
 import com.example.heliao.projgo.projgoServerData.Task;
 import com.example.heliao.projgo.projgoServerData.User;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 
 /**
  * Created by HeLiao on 3/17/2016.
  */
-public class TaskDetailFragment extends Fragment{
+public class ProjectDisplayFragment extends Fragment{
     TextView eventName, eventLabel,eventDescription,eventPeople,eventStartDate,eventEndDate;
     Button donebutton;
     ServerDataManager dataManager;
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View rootview = (View)inflater.inflate(R.layout.fragment_task_detail,container,false);
+        View rootview = (View)inflater.inflate(R.layout.fragment_project_display,container,false);
         eventName = (TextView)rootview.findViewById(R.id.eventname_edittext_displayevent);
         eventLabel = (TextView)rootview.findViewById(R.id.eventLabel_displayevent);
         eventDescription=(TextView)rootview.findViewById(R.id.description_edittext_displayevent);
@@ -55,8 +52,8 @@ public class TaskDetailFragment extends Fragment{
                 eventDescription.setText(selectedProject.description);
                // List<String> participant = new ArrayList<String>();
                 String participant = "";
-                for(HashMap.Entry<String,User> entry : selectedProject.participant.entrySet()){
-                    participant +=entry.getValue().userId +" ";
+                for(HashMap.Entry<String,String> entry : selectedProject.participant.entrySet()){
+                    participant +=entry.getValue() +" ";
                 }
                 eventPeople.setText(participant);
                 eventStartDate.setText(selectedProject.startdate);
@@ -68,8 +65,8 @@ public class TaskDetailFragment extends Fragment{
                 eventDescription.setText(selectedTask.description);
                 // List<String> participant = new ArrayList<String>();
                 String taskParticipant = "";
-                for(HashMap.Entry<String,User> entry : selectedTask.participant.entrySet()){
-                    taskParticipant +=entry.getValue().userId +" ";
+                for(HashMap.Entry<String,String> entry : selectedTask.participant.entrySet()){
+                    taskParticipant +=entry.getValue() +" ";
                 }
                 eventPeople.setText(taskParticipant);
                 eventStartDate.setText(selectedTask.start_time);
@@ -81,8 +78,8 @@ public class TaskDetailFragment extends Fragment{
                 eventDescription.setText(selectedConference.description);
                 // List<String> participant = new ArrayList<String>();
                 String conParticipant = "";
-                for(HashMap.Entry<String,User> entry : selectedConference.participant.entrySet()){
-                    conParticipant +=entry.getValue().userId +" ";
+                for(HashMap.Entry<String,String> entry : selectedConference.participant.entrySet()){
+                    conParticipant +=entry.getValue() +" ";
                 }
                 eventPeople.setText(conParticipant);
                 eventStartDate.setText(selectedConference.start_time);

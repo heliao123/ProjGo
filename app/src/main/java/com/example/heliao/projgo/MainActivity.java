@@ -1,42 +1,33 @@
 package com.example.heliao.projgo;
 
 import android.app.AlertDialog;
-import android.app.Dialog;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.telecom.Conference;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.CalendarView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 
 import com.example.heliao.projgo.projgoServerData.*;
-import android.content.SharedPreferences.Editor;
 
 public final class MainActivity extends AppCompatActivity implements FragmentConnector{
 
     CalendarFragment calendarfragment;
     TaskListFragment tasklistfragment;
-    TaskDetailFragment taskDetailFragment;
+    ProjectDisplayFragment taskDetailFragment;
     FragmentManager fragmentManager_main = getFragmentManager();
     FragmentTransaction fragmentTransaction_main = fragmentManager_main.beginTransaction();
     AddEventFragment addEventFragment = new AddEventFragment();
@@ -82,7 +73,7 @@ public final class MainActivity extends AppCompatActivity implements FragmentCon
 
     @Override
     public void getValueFromFragmentUsingInterface(String sourFrag) {
-        taskDetailFragment =(TaskDetailFragment)getFragmentManager().findFragmentById(R.id.content_frame);
+        taskDetailFragment =(ProjectDisplayFragment)getFragmentManager().findFragmentById(R.id.content_frame);
         //taskDetailFragment.updateinfo(sourFrag);
 
     }
@@ -191,13 +182,12 @@ public final class MainActivity extends AppCompatActivity implements FragmentCon
                         //Conference
                         case 2:
                             //pass event type to **AddEventFragment**
+                            AddConferenceFragment conferenceFragment = new AddConferenceFragment();
                             bundle.putString("eventtype", "Conference");
-                            addEventFragment.setArguments(bundle);
-                            Toast.makeText(MainActivity.this, "Conference 2", Toast.LENGTH_LONG).show();
-
+                            conferenceFragment.setArguments(bundle);
                             FragmentManager conferenceManager = getFragmentManager();
                             FragmentTransaction conferenceTransaction = conferenceManager.beginTransaction();
-                            conferenceTransaction.replace(R.id.content_frame, addEventFragment);
+                            conferenceTransaction.replace(R.id.content_frame, conferenceFragment);
                             conferenceTransaction.addToBackStack(null);
                             conferenceTransaction.commit();
                             dialog.cancel();

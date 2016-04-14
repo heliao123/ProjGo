@@ -22,13 +22,14 @@
         android:textSize="20dp"
         android:textColor="#000"
         android:layout_marginLeft="10dp"
-        android:text="Task:"
+        android:text="Project"
         android:id="@+id/eventLabel_displayevent"
         android:layout_gravity="center_horizontal"
         android:layout_alignTop="@+id/eventname_edittext_displayevent"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:gravity="center_vertical" />
+        android:gravity="center_vertical|right"
+        android:paddingRight="20dp" />
 
     <TextView
         android:layout_width="150dp"
@@ -40,7 +41,8 @@
         android:layout_below="@+id/eventname_edittext_displayevent"
         android:layout_alignLeft="@+id/eventLabel_displayevent"
         android:layout_alignStart="@+id/eventLabel_displayevent"
-        android:gravity="center_vertical" />
+        android:gravity="center_vertical|right"
+        android:paddingRight="20dp" />
 
     <TextView
         android:layout_width="200dp"
@@ -64,7 +66,8 @@
         android:layout_below="@+id/enddateLabel_displayevent"
         android:layout_alignLeft="@+id/enddateLabel_displayevent"
         android:layout_alignStart="@+id/enddateLabel_displayevent"
-        android:gravity="center_vertical" />
+        android:gravity="center_vertical|right"
+        android:paddingRight="20dp" />
 
     <TextView
         android:layout_width="200dp"
@@ -72,11 +75,12 @@
         android:textSize="20dp"
         android:textColor="#000"
         android:id="@+id/description_edittext_displayevent"
-        android:gravity="center_vertical"
-        android:layout_above="@+id/people_edittext_displayevent"
         android:layout_toRightOf="@+id/startdate_Label_displayevent"
         android:layout_toEndOf="@+id/startdate_Label_displayevent"
-        android:layout_below="@+id/enddateLabel_displayevent" />
+        android:layout_below="@+id/enddateLabel_displayevent"
+        android:layout_above="@+id/people_edittext_displayevent"
+        android:gravity="left|top"
+        android:padding="10dp" />
 
     <TextView
         android:layout_width="150dp"
@@ -89,7 +93,8 @@
         android:layout_toLeftOf="@+id/people_edittext_displayevent"
         android:layout_toStartOf="@+id/people_edittext_displayevent"
         android:layout_marginTop="82dp"
-        android:gravity="center_vertical" />
+        android:gravity="center_vertical|right"
+        android:paddingRight="20dp" />
 
     <TextView
         android:layout_width="200dp"
@@ -102,7 +107,8 @@
         android:layout_alignLeft="@+id/description_edittext_displayevent"
         android:layout_alignStart="@+id/description_edittext_displayevent"
         android:layout_above="@+id/buttonDone_displayevent"
-        android:gravity="center_vertical" />
+        android:gravity="center_vertical|left|top"
+        android:padding="10dp" />
 
     <Button
         android:layout_width="wrap_content"
@@ -120,10 +126,11 @@
         android:textSize="20dp"
         android:textColor="#000"
         android:id="@+id/enddateLabel_displayevent"
-        android:gravity="center_vertical"
+        android:gravity="center_vertical|right"
         android:layout_below="@+id/startdate_Label_displayevent"
         android:layout_alignLeft="@+id/startdate_Label_displayevent"
-        android:layout_alignStart="@+id/startdate_Label_displayevent" />
+        android:layout_alignStart="@+id/startdate_Label_displayevent"
+        android:paddingRight="20dp" />
 
     <TextView
         android:layout_width="200dp"
@@ -137,4 +144,22 @@
         android:layout_toEndOf="@+id/descripLabel_displayevent"
         android:textColor="#000"
         android:gravity="center_vertical"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Modify"
+        android:id="@+id/button"
+        android:layout_below="@+id/peopleLabel_displayevent"
+        android:layout_toLeftOf="@+id/buttonDone_displayevent"
+        android:layout_toStartOf="@+id/buttonDone_displayevent" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Delete"
+        android:id="@+id/button2"
+        android:layout_below="@+id/button"
+        android:layout_toLeftOf="@+id/buttonDone_displayevent"
+        android:layout_toStartOf="@+id/buttonDone_displayevent" />
 </RelativeLayout>
