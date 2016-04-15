@@ -44,6 +44,7 @@ public final class MainActivity extends AppCompatActivity implements FragmentCon
         setSupportActionBar(toolbar);
 
         mainFragment = new MainFragment();
+        /**
         //get bundles from user log in page and user registration page,
         //intent comes from **RegistrationActivity**
         Intent intentExtra = getIntent();
@@ -57,7 +58,7 @@ public final class MainActivity extends AppCompatActivity implements FragmentCon
         }}catch ( NullPointerException e){
             System.out.print(e.toString());
         }
-
+*/
         fragmentTransaction_main.add(R.id.content_frame, mainFragment);
         fragmentTransaction_main.commit();
 

@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
+import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -64,8 +65,8 @@ public class MainFragment extends Fragment {
             System.out.print(e.toString());
         }
 
-        sharedPreferences= getActivity().getSharedPreferences("userinfo",0);
-        username =  sharedPreferences.getString("nameKey", "missing");
+        sharedPreferences= getActivity().getSharedPreferences("userinfo", Context.MODE_PRIVATE);
+        username =  sharedPreferences.getString("nameKey", "miss");
 
         usernameDisplay = (TextView)rootview.findViewById(R.id.username_mainfragment);
         usernameDisplay.setText(username);

@@ -168,5 +168,19 @@
         android:layout_alignTop="@+id/con_peopleLabel_addevent"
         android:padding="30dp" />
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Remove"
+        android:id="@+id/removeParticipant_addevent"
+        android:gravity="center_vertical|right"
+        android:textSize="15dp"
+        android:textStyle="italic"
+        android:paddingRight="30dp"
+        android:clickable="true"
+        android:layout_alignBottom="@+id/con_buttonDone_addevent"
+        android:layout_alignLeft="@+id/con_people_edittext_addevent"
+        android:layout_alignStart="@+id/con_people_edittext_addevent" />
+
 
 </RelativeLayout>

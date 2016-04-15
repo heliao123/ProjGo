@@ -4,6 +4,7 @@ package com.example.heliao.projgo;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -18,6 +19,7 @@ import android.widget.TextView;
 import com.example.heliao.projgo.projgoServerData.*;
 
 import android.content.SharedPreferences.Editor;
+import android.widget.Toast;
 
 /**
  * Created by HeLiao on 4/1/2016.
@@ -32,10 +34,11 @@ public class LoginFragment extends Fragment {
     public Button mDone;
     SharedPreferences sharedPreferences;
     Editor editor;
+    ServerDataManager dataManager;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
-        sharedPreferences = getActivity().getSharedPreferences("userinfo",0);
+        sharedPreferences = getActivity().getSharedPreferences("userinfo", Context.MODE_PRIVATE);
         editor = sharedPreferences.edit();
         super.onCreate(savedInstanceState);
     }
@@ -67,20 +70,15 @@ public class LoginFragment extends Fragment {
                 public void onClick(View v) {
                     username = mUsername.getText().toString();
                     password = mPassword.getText().toString();
-                    User newuser = new User();
-                    newuser.userId = username;
-                    newuser.password = password;
+                    if( dataManager.userList.containsKey(username)&&dataManager.userList.get(username).password==password){
                     // put username and password in sharedpreferences
                         editor.putString("nameKey", username);
                         editor.putString("passwordKey", password);
                         editor.commit();
                     //create intent and bundle, then sent it to **MainActivity**
                     Intent i = new Intent(getActivity().getApplicationContext(), MainActivity.class);
-                    Bundle bundle = new Bundle();
-                    bundle.putString("username", username);
-                    bundle.putString("password", password);
-                    i.putExtras(bundle);
-                    startActivity(i);
+                    startActivity(i);}else
+                        Toast.makeText(getActivity().getApplicationContext(),"User name or passwork is incorrect~!",Toast.LENGTH_LONG).show();
                 }
             });
         //} catch (NullPointerException e) {

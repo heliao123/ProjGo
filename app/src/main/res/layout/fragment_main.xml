@@ -25,7 +25,7 @@
         android:text="@string/checkProject"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:gravity="bottom|left"
+        android:gravity="center_vertical|center_horizontal|bottom|left"
         android:layout_alignParentBottom="true"
         android:layout_toRightOf="@+id/username_mainfragment"
         android:layout_toEndOf="@+id/username_mainfragment" />

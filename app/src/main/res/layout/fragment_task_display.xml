@@ -188,7 +188,8 @@
         android:layout_alignTop="@+id/progresslabel_displayTask"
         android:layout_toRightOf="@+id/descripLabel_displaytask"
         android:layout_alignRight="@+id/description_edittext_displaytask"
-        android:layout_alignEnd="@+id/description_edittext_displaytask" />
+        android:layout_alignEnd="@+id/description_edittext_displaytask"
+        android:inputType="textMultiLine" />
 
     <Button
         style="?android:attr/buttonStyleSmall"

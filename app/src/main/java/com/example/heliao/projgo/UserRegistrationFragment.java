@@ -1,6 +1,7 @@
 package com.example.heliao.projgo;
 
 import android.app.Fragment;
+import android.content.Context;
 import android.content.Intent;
 
 import android.content.SharedPreferences;
@@ -35,7 +36,7 @@ public class UserRegistrationFragment extends Fragment {
         mDone = (Button)rootview.findViewById(R.id.done_Button_user_register);
 
         //create sharedpreferences
-        sharedPreferences = getActivity().getSharedPreferences("userinfo",0);
+        sharedPreferences = getActivity().getSharedPreferences("userinfo", Context.MODE_PRIVATE);
         mDone.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
