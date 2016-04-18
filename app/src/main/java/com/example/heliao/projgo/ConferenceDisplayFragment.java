@@ -66,8 +66,8 @@ public class ConferenceDisplayFragment extends Fragment {
             conParticipant +=entry.getValue() +" ";
         }
         conferencePeople.setText(conParticipant);
-        conferenceStartTime.setText(selectedConference.start_time);
-        conferenceEndTime.setText(selectedConference.end_time);
+        conferenceStartTime.setText(selectedConference.start_time_string);
+        conferenceEndTime.setText(selectedConference.end_time_string);
         conferencetDate.setText(selectedConference.conferencedate);
 
 
@@ -142,8 +142,6 @@ public class ConferenceDisplayFragment extends Fragment {
                 }
             });
         }
-
-
 
         return rootview;
     }

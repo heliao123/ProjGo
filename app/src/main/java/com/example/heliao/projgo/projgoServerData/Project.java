@@ -1,6 +1,12 @@
 package com.example.heliao.projgo.projgoServerData;
 
+import android.content.Context;
+import android.widget.Toast;
+
 import java.io.Serializable;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 
@@ -15,22 +21,32 @@ public class Project implements Serializable {
     public String name,description,id, startdate, enddate;
     public HashMap<String,String> participant = new HashMap<String,String>();
     public HashMap<String,Task> task = new HashMap<String,Task>();
-    public Date last_update,start_time,end_time;
+    public ArrayList<String> participant_list = new ArrayList<String>();
+    public Date last_update,start_time,end_time,new_time;
     public User holder;
     //	SimpleDateFormat onlyDate = new SimpleDateFormat("dd/M/yyyy HH:mm:ss");
     public Project(){
         name = "sample_name";
         description = "sample_discription";
-        update();
+        new_time = new Date();
+        last_update = new_time;
     }
-    public Project(User u,String n,String d, String sd, String ed){
+    public Project(User u,String n,String d, String sd, String ed)  {
         holder = u;
         name = n;
         description = d;
         startdate = sd;
         enddate =ed;
-        update();
-        id = n+last_update.toString();
+        new_time = new Date();
+        last_update = new_time;
+        id = n+"_"+last_update.getTime();
+        SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
+        try {
+            start_time = sdf.parse(sd);
+            end_time = sdf.parse(ed);
+        }catch (ParseException e){
+            e.printStackTrace();
+        }
     }/*
     public void add_participant (User u){
         participant.put(u.userId, u);
@@ -49,7 +65,7 @@ public class Project implements Serializable {
         update();
     }
     public boolean is_holder (User u){
-        if (u.equals(holder)){
+        if (u.userId.equals(holder.userId)){
             return true;
         }
         return false;

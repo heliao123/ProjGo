@@ -16,16 +16,18 @@ public class User implements Serializable {
     public static HashMap<String,Project> project = new HashMap<String,Project>();
     public static HashMap<String,Task> task = new HashMap<String, Task>();
     public static HashMap<String,Conference> conference = new HashMap<String,Conference>();
-    public Date last_update;
+    public Date last_update, new_time;
     public User(){
         userId = "ZhangSan";
         password = "123123";
-        update();
+        new_time = new Date();
+        last_update = new_time;
     }
     public User(String x, String y){
         userId = x;
         password = y;
-        update();
+        new_time = new Date();
+        last_update = new_time;
     }
     public static boolean match(String id, String pw, HashMap<String,User> user_list){
         if (user_list.containsKey(id) && user_list.get(id).password.equals(pw)){

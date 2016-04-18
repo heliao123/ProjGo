@@ -119,8 +119,8 @@ public class TaskListFragment extends Fragment {
         dataManager = ServerDataManager.getInstance();
         for (HashMap.Entry<String, Task> entry : dataManager.taskList.entrySet()) {
             try {
-                Date startDate = df.parse(entry.getValue().start_time);
-                Date endDate = df.parse(entry.getValue().end_time);
+                Date startDate = df.parse(entry.getValue().start_time_string);
+                Date endDate = df.parse(entry.getValue().end_time_string);
                 Date currentDate = df.parse(date);
                 startDate = new Date(startDate.getTime() - 1*24*3600*1000);
                 endDate = new Date(endDate.getTime() + 1*24*3600*1000);

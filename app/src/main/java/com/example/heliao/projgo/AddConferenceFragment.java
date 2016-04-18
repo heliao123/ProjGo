@@ -117,8 +117,8 @@ public class AddConferenceFragment extends Fragment {
             }
             mPeopleDsiplay.setText(par);
             //start date and end date
-            mStartTime.setText(modifyVersion.start_time);
-            mEndTime.setText(modifyVersion.end_time);
+            mStartTime.setText(modifyVersion.start_time_string);
+            mEndTime.setText(modifyVersion.end_time_string);
         }
 
         //get userinfo from sharedpreferences
@@ -141,15 +141,6 @@ public class AddConferenceFragment extends Fragment {
                 tempStartTime = mStartTime.getText().toString();
                 tempEndTime = mEndTime.getText().toString();
                 conDate = mConferDate.getText().toString();
-                /**
-                 *
-                 * ADD  to the Server
-                 * ADD  to the Server
-                 * ADD  to the Server
-                 * ADD  to the Server
-                 */
-
-
                 //add conference
                 Conference newconference = new Conference(currentUser, addEventName, addDescription, tempStartTime, tempEndTime, conDate);
 
@@ -159,6 +150,13 @@ public class AddConferenceFragment extends Fragment {
                 }
                 //update user
                 currentUser.conference.put(addEventName, newconference);
+                /**
+                 *
+                 * ADD  to the Server
+                 * ADD  to the Server
+                 * ADD  to the Server
+                 * ADD  to the Server
+                 */
                 //update ServerDataManager
                 dataManager.addConference(addEventName, newconference);
                 /**

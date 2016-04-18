@@ -69,8 +69,8 @@ public class TaskDisplayFragment extends Fragment {
             taskParticipant +=entry.getValue() +" ";
         }
         taskPeople.setText(taskParticipant);
-        taskStartDate.setText(selectedTask.start_time);
-        taskEndDate.setText(selectedTask.end_time);
+        taskStartDate.setText(selectedTask.start_time_string);
+        taskEndDate.setText(selectedTask.end_time_string);
 
         taskProjectName.setText(selectedTask.project.name);
         taskPrograss.setText(selectedTask.progress);
@@ -84,6 +84,8 @@ public class TaskDisplayFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 //startActivity(i);
+                String progress = taskPrograss.getText().toString();
+                selectedTask.progress = progress;
 
                 FragmentManager fragmentManager_mainfragment = getFragmentManager();
                 FragmentTransaction fragmentTransaction_mainfragment = fragmentManager_mainfragment.beginTransaction();

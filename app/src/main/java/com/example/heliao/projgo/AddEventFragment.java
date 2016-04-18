@@ -14,13 +14,11 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.heliao.projgo.projgoServerData.Conference;
 import com.example.heliao.projgo.projgoServerData.Project;
 import com.example.heliao.projgo.projgoServerData.ServerDataManager;
 import com.example.heliao.projgo.projgoServerData.Task;
 import com.example.heliao.projgo.projgoServerData.User;
 
-import java.util.Calendar;
 import java.util.Date;
 import java.util.Map;
 
@@ -127,8 +125,8 @@ public class AddEventFragment extends Fragment {
             }
             mPeopleDsiplay.setText(par);
             //start date and end date
-            mStartDate.setText(modifyVersion.start_time);
-            mEndDate.setText(modifyVersion.end_time);
+            mStartDate.setText(modifyVersion.start_time_string);
+            mEndDate.setText(modifyVersion.end_time_string);
         }
 
         //get userinfo from sharedpreferences
