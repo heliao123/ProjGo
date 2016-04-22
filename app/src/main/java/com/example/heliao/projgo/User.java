@@ -1,4 +1,4 @@
-package com.example.heliao.projgo.projgoServerData;
+package com.example.heliao.projgo;
 
 import java.io.Serializable;
 import java.util.Date;

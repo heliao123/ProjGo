@@ -14,10 +14,6 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.example.heliao.projgo.projgoServerData.Conference;
-import com.example.heliao.projgo.projgoServerData.ServerDataManager;
-import com.example.heliao.projgo.projgoServerData.Task;
-
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;

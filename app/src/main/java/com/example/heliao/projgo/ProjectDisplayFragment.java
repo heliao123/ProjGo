@@ -14,10 +14,6 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.heliao.projgo.projgoServerData.Project;
-import com.example.heliao.projgo.projgoServerData.ServerDataManager;
-import com.example.heliao.projgo.projgoServerData.User;
-
 import java.util.HashMap;
 
 /**

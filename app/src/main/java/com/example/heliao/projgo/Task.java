@@ -1,4 +1,4 @@
-package com.example.heliao.projgo.projgoServerData;
+package com.example.heliao.projgo;
 
 import java.io.Serializable;
 import java.text.ParseException;
@@ -11,47 +11,42 @@ import java.util.HashMap;
  * Created by HeLiao on 4/2/2016.
  */
 
-public class Conference implements Serializable {
+public class Task implements Serializable {
     /**
      *
      */
-    private static final long serialVersionUID = 6411148402757655234L;
-    public String name,description,location,id, start_time_string, end_time_string, conferencedate;
+    private static final long serialVersionUID = 468408715514705317L;
+    public String name,description,id,progress, start_time_string, end_time_string;
     public HashMap<String,String> participant = new HashMap<String,String>();
     public ArrayList<String> participant_list = new ArrayList<String>();
-    public User holder;
-    public Date last_update,new_time,start_time,end_time,conDate;
+    public Project project;
+    public Date last_update,new_time,start_time,end_time;
     //	SimpleDateFormat onlyDate = new SimpleDateFormat("dd/M/yyyy HH:mm:ss");
-    public Conference (){
+    public Task(){
         name = "sample_name";
-        location = "sample_location";
         description = "sample_discription";
+        progress = "";
         new_time = new Date();
         last_update = new_time;
     }
-    public Conference (User u,String n,String d, String st, String et,String date){
-        holder = u;
+    public Task (Project p,String n,String d,String st, String et){
+        project = p;
         name = n;
-        //location = l;
         description = d;
-        start_time_string = date +" "+ st;
-        end_time_string =date + " " +et;
-        conferencedate = date;
+        progress = "";
+        start_time_string = st;
+        end_time_string =et;
         new_time = new Date();
         last_update = new_time;
-        id = n + last_update.toString();
-        SimpleDateFormat sdfdate = new SimpleDateFormat("MM/dd/yyyy hh:mm:ss");
-        SimpleDateFormat sdftime = new SimpleDateFormat("MM/dd/yyyy hh:mm:ss");
+        id = n+"_"+last_update.getTime();
+        SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
         try {
-            start_time = sdftime.parse(st);
-            end_time = sdftime.parse(et);
-            conDate = sdfdate.parse(date);
+            start_time = sdf.parse(st);
+            end_time = sdf.parse(et);
         }catch (ParseException e){
             e.printStackTrace();
         }
-        
-    }
-    /*
+    }/*
     public void add_participant (User u){
         participant.put(u.userId, u);
         update();
@@ -60,8 +55,9 @@ public class Conference implements Serializable {
         participant.remove(u.userId);
         update();
     }
+
     public boolean is_holder (User u){
-        if (u.userId.equals(holder.userId)){
+        if (u.userId.equals(project.holder.userId)){
             return true;
         }
         return false;

@@ -14,12 +14,6 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.heliao.projgo.projgoServerData.Client;
-import com.example.heliao.projgo.projgoServerData.Project;
-import com.example.heliao.projgo.projgoServerData.ServerDataManager;
-import com.example.heliao.projgo.projgoServerData.Task;
-import com.example.heliao.projgo.projgoServerData.User;
-
 import java.util.Date;
 import java.util.Map;
 
@@ -205,9 +199,9 @@ public class AddEventFragment extends Fragment {
                         dataManager.addTask(addEventName, newtask);
 
                         if(modifyProject!=null&&eventtype=="Task"){
-                            mClient.mod_task(currentUser,newtask);
+                            mClient.mod_task(currentUser, newtask);
                         }else{
-                            mClient.new_task(currentUser,newtask);
+                            mClient.new_task(currentUser, newtask);
                         }
 
 

@@ -20,10 +20,6 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.heliao.projgo.projgoServerData.Client;
-import com.example.heliao.projgo.projgoServerData.ServerDataManager;
-import com.example.heliao.projgo.projgoServerData.User;
-
 
 /**
  * Created by HeLiao on 4/1/2016.

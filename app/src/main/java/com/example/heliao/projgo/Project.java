@@ -1,4 +1,4 @@
-package com.example.heliao.projgo.projgoServerData;
+package com.example.heliao.projgo;
 
 import java.io.Serializable;
 import java.text.ParseException;
@@ -10,39 +10,37 @@ import java.util.HashMap;
 /**
  * Created by HeLiao on 4/2/2016.
  */
-
-public class Task implements Serializable {
+public class Project implements Serializable {
     /**
      *
      */
-    private static final long serialVersionUID = 468408715514705317L;
-    public String name,description,id,progress, start_time_string, end_time_string;
+    private static final long serialVersionUID = -5997969113587524502L;
+    public String name,description,id, startdate, enddate;
     public HashMap<String,String> participant = new HashMap<String,String>();
+    public HashMap<String,Task> task = new HashMap<String,Task>();
     public ArrayList<String> participant_list = new ArrayList<String>();
-    public Project project;
-    public Date last_update,new_time,start_time,end_time;
+    public Date last_update,start_time,end_time,new_time;
+    public User holder;
     //	SimpleDateFormat onlyDate = new SimpleDateFormat("dd/M/yyyy HH:mm:ss");
-    public Task(){
+    public Project(){
         name = "sample_name";
         description = "sample_discription";
-        progress = "";
         new_time = new Date();
         last_update = new_time;
     }
-    public Task (Project p,String n,String d,String st, String et){
-        project = p;
+    public Project(User u,String n,String d, String sd, String ed)  {
+        holder = u;
         name = n;
         description = d;
-        progress = "";
-        start_time_string = st;
-        end_time_string =et;
+        startdate = sd;
+        enddate =ed;
         new_time = new Date();
         last_update = new_time;
         id = n+"_"+last_update.getTime();
         SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
         try {
-            start_time = sdf.parse(st);
-            end_time = sdf.parse(et);
+            start_time = sdf.parse(sd);
+            end_time = sdf.parse(ed);
         }catch (ParseException e){
             e.printStackTrace();
         }
@@ -51,13 +49,20 @@ public class Task implements Serializable {
         participant.put(u.userId, u);
         update();
     }*/
+    public void add_task (Task t){
+        task.put(t.id, t);
+        update();
+    }
     public void delete_participant (User u){
         participant.remove(u.userId);
         update();
     }
-
+    public void delete_task (Task t){
+        task.remove(t.id);
+        update();
+    }
     public boolean is_holder (User u){
-        if (u.userId.equals(project.holder.userId)){
+        if (u.userId.equals(holder.userId)){
             return true;
         }
         return false;

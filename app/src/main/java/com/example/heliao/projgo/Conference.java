@@ -1,7 +1,4 @@
-package com.example.heliao.projgo.projgoServerData;
-
-import android.content.Context;
-import android.widget.Toast;
+package com.example.heliao.projgo;
 
 import java.io.Serializable;
 import java.text.ParseException;
@@ -13,55 +10,54 @@ import java.util.HashMap;
 /**
  * Created by HeLiao on 4/2/2016.
  */
-public class Project implements Serializable {
+
+public class Conference implements Serializable {
     /**
      *
      */
-    private static final long serialVersionUID = -5997969113587524502L;
-    public String name,description,id, startdate, enddate;
+    private static final long serialVersionUID = 6411148402757655234L;
+    public String name,description,location,id, start_time_string, end_time_string, conferencedate;
     public HashMap<String,String> participant = new HashMap<String,String>();
-    public HashMap<String,Task> task = new HashMap<String,Task>();
     public ArrayList<String> participant_list = new ArrayList<String>();
-    public Date last_update,start_time,end_time,new_time;
     public User holder;
+    public Date last_update,new_time,start_time,end_time,conDate;
     //	SimpleDateFormat onlyDate = new SimpleDateFormat("dd/M/yyyy HH:mm:ss");
-    public Project(){
+    public Conference (){
         name = "sample_name";
+        location = "sample_location";
         description = "sample_discription";
         new_time = new Date();
         last_update = new_time;
     }
-    public Project(User u,String n,String d, String sd, String ed)  {
+    public Conference (User u,String n,String d, String st, String et,String date){
         holder = u;
         name = n;
+        //location = l;
         description = d;
-        startdate = sd;
-        enddate =ed;
+        start_time_string = date +" "+ st;
+        end_time_string =date + " " +et;
+        conferencedate = date;
         new_time = new Date();
         last_update = new_time;
-        id = n+"_"+last_update.getTime();
-        SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
+        id = n + last_update.toString();
+        SimpleDateFormat sdfdate = new SimpleDateFormat("MM/dd/yyyy hh:mm:ss");
+        SimpleDateFormat sdftime = new SimpleDateFormat("MM/dd/yyyy hh:mm:ss");
         try {
-            start_time = sdf.parse(sd);
-            end_time = sdf.parse(ed);
+            start_time = sdftime.parse(st);
+            end_time = sdftime.parse(et);
+            conDate = sdfdate.parse(date);
         }catch (ParseException e){
             e.printStackTrace();
         }
-    }/*
+        
+    }
+    /*
     public void add_participant (User u){
         participant.put(u.userId, u);
         update();
     }*/
-    public void add_task (Task t){
-        task.put(t.id, t);
-        update();
-    }
     public void delete_participant (User u){
         participant.remove(u.userId);
-        update();
-    }
-    public void delete_task (Task t){
-        task.remove(t.id);
         update();
     }
     public boolean is_holder (User u){

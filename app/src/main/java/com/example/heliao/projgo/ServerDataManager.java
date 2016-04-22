@@ -1,6 +1,5 @@
-package com.example.heliao.projgo.projgoServerData;
+package com.example.heliao.projgo;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 
 /**

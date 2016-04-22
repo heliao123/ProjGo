@@ -14,11 +14,6 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.heliao.projgo.projgoServerData.Client;
-import com.example.heliao.projgo.projgoServerData.Conference;
-import com.example.heliao.projgo.projgoServerData.ServerDataManager;
-import com.example.heliao.projgo.projgoServerData.User;
-
 import java.util.Date;
 import java.util.Map;
 
