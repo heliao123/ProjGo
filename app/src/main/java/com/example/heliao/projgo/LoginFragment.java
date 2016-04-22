@@ -7,7 +7,10 @@ import android.app.FragmentTransaction;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,26 +18,30 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-
-import com.example.heliao.projgo.projgoServerData.*;
-
-import android.content.SharedPreferences.Editor;
 import android.widget.Toast;
+
+import com.example.heliao.projgo.projgoServerData.Client;
+import com.example.heliao.projgo.projgoServerData.ServerDataManager;
+import com.example.heliao.projgo.projgoServerData.User;
+
 
 /**
  * Created by HeLiao on 4/1/2016.
  */
 public class LoginFragment extends Fragment {
 
+    private final Handler handler = new Handler();
     public EditText mUsername;
-    String username;
-    String password;
     public EditText mPassword;
     public TextView mUserRegistration;
     public Button mDone;
+    String username;
+    String password;
     SharedPreferences sharedPreferences;
     Editor editor;
     ServerDataManager dataManager;
+    Client mClient;
+    User currentuser;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -46,6 +53,7 @@ public class LoginFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        mClient = new Client();
         View rootview = (View) inflater.inflate(R.layout.fragment_log_in, container, false);
         mUsername = (EditText) rootview.findViewById(R.id.userid_editTextt);
         mPassword = (EditText) rootview.findViewById(R.id.password_editText);
@@ -54,36 +62,62 @@ public class LoginFragment extends Fragment {
 
         //create sharedpreferences
 
-            mUserRegistration.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    UserRegistrationFragment userRegistrationFragment = new UserRegistrationFragment();
-                    FragmentManager loginmanager = getFragmentManager();
-                    FragmentTransaction fragmentTransaction = loginmanager.beginTransaction();
-                    fragmentTransaction.replace(R.id.login_main_frame, userRegistrationFragment);
-                    fragmentTransaction.commit();
-                }
-            });
+        mUserRegistration.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                UserRegistrationFragment userRegistrationFragment = new UserRegistrationFragment();
+                FragmentManager loginmanager = getFragmentManager();
+                FragmentTransaction fragmentTransaction = loginmanager.beginTransaction();
+                fragmentTransaction.replace(R.id.login_main_frame, userRegistrationFragment);
+                fragmentTransaction.commit();
+            }
+        });
 
-            mDone.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    username = mUsername.getText().toString();
-                    password = mPassword.getText().toString();
-                    if( dataManager.userList.containsKey(username)&&dataManager.userList.get(username).password==password){
+        mDone.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                username = mUsername.getText().toString();
+                password = mPassword.getText().toString();
+                currentuser = new User(username, password);
+                //mClient.log_in(currentuser);
+//                    new Thread(new ServerLogIn()).start();
+                new ServerLogin().execute();
+                if (dataManager.userList.containsKey(username) && dataManager.userList.get(username).password == password) {
                     // put username and password in sharedpreferences
-                        editor.putString("nameKey", username);
-                        editor.putString("passwordKey", password);
-                        editor.commit();
+                    editor.putString("nameKey", username);
+                    editor.putString("passwordKey", password);
+                    editor.commit();
                     //create intent and bundle, then sent it to **MainActivity**
                     Intent i = new Intent(getActivity().getApplicationContext(), MainActivity.class);
-                    startActivity(i);}else
-                        Toast.makeText(getActivity().getApplicationContext(),"User name or passwork is incorrect~!",Toast.LENGTH_LONG).show();
-                }
-            });
+                    startActivity(i);
+                } else
+                    Toast.makeText(getActivity().getApplicationContext(), "User name or passwork is incorrect~!", Toast.LENGTH_LONG).show();
+            }
+        });
         //} catch (NullPointerException e) {
-       //     System.out.print(e.toString());
+        //     System.out.print(e.toString());
         //}
         return rootview;
     }
+
+    //    private class ServerLogIn implements Runnable{
+//        @Override
+//        public void run() {
+//            handler.post(new Runnable() {
+//                @Override
+//                public void run() {
+//                    mClient.log_in(currentuser);
+//                }
+//            });
+//
+//        }
+//    }
+    private class ServerLogin extends AsyncTask<Void, Void, Void> {
+        @Override
+        protected Void doInBackground(Void... params) {
+            mClient.log_in(currentuser);
+            return null;
+        }
+    }
 }
+

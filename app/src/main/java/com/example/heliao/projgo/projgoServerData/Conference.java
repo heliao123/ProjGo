@@ -34,8 +34,8 @@ public class Conference implements Serializable {
         name = n;
         //location = l;
         description = d;
-        start_time_string = st;
-        end_time_string =et;
+        start_time_string = date +" "+ st;
+        end_time_string =date + " " +et;
         conferencedate = date;
         new_time = new Date();
         last_update = new_time;

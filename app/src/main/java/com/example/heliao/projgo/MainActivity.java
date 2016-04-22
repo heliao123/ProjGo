@@ -100,6 +100,8 @@ public final class MainActivity extends AppCompatActivity implements FragmentCon
         }
 
         if (id == R.id.action_refresh) {
+            Client client = new Client();
+            client.refresh(dataManager.userList.get(sharedPreferences.getString("userKey","missing")));
             return true;
         }
 

@@ -14,6 +14,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.heliao.projgo.projgoServerData.Client;
 import com.example.heliao.projgo.projgoServerData.Project;
 import com.example.heliao.projgo.projgoServerData.ServerDataManager;
 import com.example.heliao.projgo.projgoServerData.Task;
@@ -38,11 +39,11 @@ public class AddEventFragment extends Fragment {
     ServerDataManager dataManager;
     String currentUserName;
     String modifyProject,modifyTask;
-
+    Client mClient;
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-
+        mClient = new Client();
         View rootview = inflater.inflate(R.layout.fragment_addevent_layout, container, false);
         //1. Reading values from fragment_addevent_layout
         mEventlabel = (TextView) rootview.findViewById(R.id.con_Label_addevent);
@@ -165,12 +166,19 @@ public class AddEventFragment extends Fragment {
                         String[] participants = addPeople.split(",");
                         for (String name : participants) {
                             newproject.participant.put(name, name);
+                            newproject.participant_list.add(name);
                         }
                         //update current user
                         currentUser.project.put(addEventName, newproject);
                         //currentUser.add_project(newproject);
                         //update ServerDataManager
                         dataManager.addProject(addEventName, newproject);
+                        if(modifyProject!=null&&eventtype=="Project"){
+                            mClient.mod_proj(currentUser,newproject);
+                        }else{
+                            mClient.new_proj(currentUser,newproject);
+                        }
+
 
                         break;
                     case "Task":
@@ -189,11 +197,20 @@ public class AddEventFragment extends Fragment {
                         String[] taskParticipants = addPeople.split(",");
                         for (String name : taskParticipants) {
                             newtask.participant.put(name, name);
+                            newtask.participant_list.add(name);
                         }
                         //update project
                        // selectedProject.task.put(addEventName, newtask);
                         //update ServerDataManager
                         dataManager.addTask(addEventName, newtask);
+
+                        if(modifyProject!=null&&eventtype=="Task"){
+                            mClient.mod_task(currentUser,newtask);
+                        }else{
+                            mClient.new_task(currentUser,newtask);
+                        }
+
+
                         break;
 
                 }

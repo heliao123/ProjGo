@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 
 import android.content.SharedPreferences;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
@@ -13,8 +14,14 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.example.heliao.projgo.projgoServerData.Client;
 import com.example.heliao.projgo.projgoServerData.ServerDataManager;
 import com.example.heliao.projgo.projgoServerData.User;
+
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.net.URL;
+import java.net.URLConnection;
 
 /**
  * Created by HeLiao on 4/1/2016.
@@ -27,6 +34,7 @@ public class UserRegistrationFragment extends Fragment {
     String username;
     String password;
     User newuser;
+    Client mClient;
     SharedPreferences sharedPreferences;
     SharedPreferences.Editor editor;
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -56,12 +64,26 @@ public class UserRegistrationFragment extends Fragment {
                 // pass user info to the Main Activity
                 Intent i = new Intent(getActivity().getApplicationContext(),MainActivity.class);
                 Bundle bundle = new Bundle();
-                bundle.putString("username",username);
-                bundle.putString("password",password);
+                bundle.putString("username", username);
+                bundle.putString("password", password);
                 i.putExtras(bundle);
+
+                // update server
+                new ServerUserRegistration().execute();
                 startActivity(i);
             }
         });
         return rootview;
+    }
+
+    private class ServerUserRegistration extends AsyncTask<Void, Void, Void> {
+
+        @Override
+        protected Void doInBackground(Void... params) {
+            mClient.reg(newuser);
+
+            return null;
+
+        }
     }
 }

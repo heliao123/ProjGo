@@ -16,6 +16,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.heliao.projgo.projgoServerData.Client;
 import com.example.heliao.projgo.projgoServerData.ServerDataManager;
 import com.example.heliao.projgo.projgoServerData.Task;
 import com.example.heliao.projgo.projgoServerData.User;
@@ -34,6 +35,7 @@ public class TaskDisplayFragment extends Fragment {
     String currentuser;
     AddEventFragment taskFragment;
     FragmentManager taskFragmentManager;
+    Client mClient;
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {

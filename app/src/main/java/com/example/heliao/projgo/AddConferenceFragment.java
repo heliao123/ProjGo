@@ -14,6 +14,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.heliao.projgo.projgoServerData.Client;
 import com.example.heliao.projgo.projgoServerData.Conference;
 import com.example.heliao.projgo.projgoServerData.ServerDataManager;
 import com.example.heliao.projgo.projgoServerData.User;
@@ -37,10 +38,12 @@ public class AddConferenceFragment extends Fragment {
     ServerDataManager dataManager;
     String currentUserName;
     String modifyconference;
+    Client mClient;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        mClient = new Client();
         View rootview = inflater.inflate(R.layout.fragment_meeting, container, false);
         //1. Reading values from fragment_addevent_layout
         mEventlabel = (TextView) rootview.findViewById(R.id.meeting_Label_addevent);
@@ -107,6 +110,7 @@ public class AddConferenceFragment extends Fragment {
              * MODIFY Conference
              * MODIFY Conference
              */
+
             Conference modifyVersion = dataManager.conferenceList.get(modifyconference);
             mEventName.setText(modifyVersion.name);
             mDescription.setText(modifyVersion.description);
@@ -147,16 +151,10 @@ public class AddConferenceFragment extends Fragment {
                 String[] conParticipants = addPeople.split(",");
                 for (String name : conParticipants) {
                     newconference.participant.put(name, name);
+                    newconference.participant_list.add(name);
                 }
                 //update user
                 currentUser.conference.put(addEventName, newconference);
-                /**
-                 *
-                 * ADD  to the Server
-                 * ADD  to the Server
-                 * ADD  to the Server
-                 * ADD  to the Server
-                 */
                 //update ServerDataManager
                 dataManager.addConference(addEventName, newconference);
                 /**
@@ -166,6 +164,11 @@ public class AddConferenceFragment extends Fragment {
                  * ADD  to the Server
                  * ADD  to the Server
                  */
+                if (modifyconference != null && eventtype == "Conference"){
+                    mClient.mod_conf(currentUser,newconference);
+                }else{
+                mClient.new_conf(currentUser,newconference);}
+
                 startActivity(i);
 
             }
