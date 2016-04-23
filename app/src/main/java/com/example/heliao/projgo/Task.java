@@ -17,7 +17,7 @@ public class Task implements Serializable {
      */
     private static final long serialVersionUID = 468408715514705317L;
     public String name,description,id,progress, start_time_string, end_time_string;
-    public HashMap<String,String> participant = new HashMap<String,String>();
+    public HashMap<String,User> participant = new HashMap<String,User>();
     public ArrayList<String> participant_list = new ArrayList<String>();
     public Project project;
     public Date last_update,new_time,start_time,end_time;
@@ -39,10 +39,10 @@ public class Task implements Serializable {
         new_time = new Date();
         last_update = new_time;
         id = n+"_"+last_update.getTime();
-        SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
+        SimpleDateFormat sdf2 = new SimpleDateFormat("MM/dd/yyyy");
         try {
-            start_time = sdf.parse(st);
-            end_time = sdf.parse(et);
+            start_time = sdf2.parse(start_time_string);
+            end_time = sdf2.parse(end_time_string);
         }catch (ParseException e){
             e.printStackTrace();
         }

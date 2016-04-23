@@ -72,6 +72,7 @@ public class TaskListFragment extends Fragment {
                 String title = textView.getText().toString();
                 //fragmentConnector.getValueFromFragmentUsingInterface(title);
                 Bundle bundle = new Bundle();
+                title = dataManager.eventList.get(title);
                 if(dataManager.taskList.containsKey(title)){
                     bundle.putString("projectname","Task");
                     bundle.putString("eventname",title);
@@ -117,14 +118,15 @@ public class TaskListFragment extends Fragment {
         dataManager = ServerDataManager.getInstance();
         for (HashMap.Entry<String, Task> entry : dataManager.taskList.entrySet()) {
             try {
-                Date startDate = df.parse(entry.getValue().start_time_string);
-                Date endDate = df.parse(entry.getValue().end_time_string);
+                Date startDate = entry.getValue().start_time;
+                Date endDate = entry.getValue().end_time;
                 Date currentDate = df.parse(date);
                 startDate = new Date(startDate.getTime() - 1*24*3600*1000);
                 endDate = new Date(endDate.getTime() + 1*24*3600*1000);
 
                 if (currentDate.after(startDate) && currentDate.before(endDate)) {
                     tasks.add(entry.getValue().name);
+                    dataManager.eventList.put(entry.getValue().name,entry.getValue().id);
                 }
             } catch (ParseException e) {
                 e.printStackTrace();
@@ -149,6 +151,7 @@ public class TaskListFragment extends Fragment {
 
                 if (currentDate.equals(startDate)) {
                     tasks.add(entry.getValue().name);
+                    dataManager.eventList.put(entry.getValue().name,entry.getValue().id);
                 }
             } catch (ParseException e) {
                 e.printStackTrace();

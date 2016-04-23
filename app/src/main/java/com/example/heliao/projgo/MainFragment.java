@@ -77,6 +77,7 @@ public class MainFragment extends Fragment {
                 List<String> projects = new ArrayList<String>();
                 for(HashMap.Entry<String,Project> entry : dataManager.projectList.entrySet()){
                     projects.add(entry.getValue().name);
+                    dataManager.eventList.put(entry.getValue().name,entry.getValue().id);
                 }
                 ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity().getApplicationContext(), R.layout.add_list_layout, R.id.addList_testview, projects);
                 projectList.setAdapter(adapter);

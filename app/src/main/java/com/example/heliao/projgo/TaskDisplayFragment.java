@@ -5,7 +5,9 @@ import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
@@ -16,6 +18,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.text.SimpleDateFormat;
 import java.util.HashMap;
 
 /**
@@ -30,13 +33,16 @@ public class TaskDisplayFragment extends Fragment {
     String currentuser;
     AddEventFragment taskFragment;
     FragmentManager taskFragmentManager;
-    Client mClient;
+    Client mClient = new Client();
+    User mCurrentUser;
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         SharedPreferences sharedPreferences = getActivity().getSharedPreferences("userinfo", Context.MODE_PRIVATE);
         currentuser = sharedPreferences.getString("nameKey", "miss");
+        mCurrentUser = dataManager.userList.get(currentuser);
 
         View rootview = (View) inflater.inflate(R.layout.fragment_task_display, container, false);
         taskName = (TextView) rootview.findViewById(R.id.taskname_edittext_displaytask);
@@ -57,17 +63,24 @@ public class TaskDisplayFragment extends Fragment {
         String eventname = bundle.getString("eventname");
         dataManager = ServerDataManager.getInstance();
 
+//        eventname = dataManager.eventList.get(eventname);
         selectedTask = dataManager.taskList.get(eventname);
         taskName.setText(selectedTask.name);
         taskDescription.setText(selectedTask.description);
         // List<String> participant = new ArrayList<String>();
         String taskParticipant = "";
-        for(HashMap.Entry<String,String> entry : selectedTask.participant.entrySet()){
-            taskParticipant +=entry.getValue() +" ";
+        for(HashMap.Entry<String,User> entry : selectedTask.participant.entrySet()){
+            taskParticipant +=entry.getValue().userId +" ";
         }
+
+
+        SimpleDateFormat sdf1 = new SimpleDateFormat("MM/dd/yyyy");
+        String start = sdf1.format(selectedTask.start_time);
+        String end = sdf1.format(selectedTask.end_time);
+
         taskPeople.setText(taskParticipant);
-        taskStartDate.setText(selectedTask.start_time_string);
-        taskEndDate.setText(selectedTask.end_time_string);
+        taskStartDate.setText(start);
+        taskEndDate.setText(end);
 
         taskProjectName.setText(selectedTask.project.name);
         taskPrograss.setText(selectedTask.progress);
@@ -110,6 +123,7 @@ public class TaskDisplayFragment extends Fragment {
                     FragmentTransaction tft = taskFragmentManager.beginTransaction();
                     tft.replace(R.id.content_frame, taskFragment);
                     tft.commit();
+                    //new ServerModifyTask().execute(selectedTask);
                 }
             });
             /**DELETE BUTTON*/
@@ -131,6 +145,7 @@ public class TaskDisplayFragment extends Fragment {
                      *
                      *
                      */
+                    new ServerDeleteTask().execute(selectedTask);
                 }
             });
         } else {
@@ -141,6 +156,8 @@ public class TaskDisplayFragment extends Fragment {
                 public void onClick(View v) {
                     String progress = taskPrograss.getText().toString();
                     selectedTask.progress = progress;
+                    new ServerUpdateProgress().execute(selectedTask);
+
                 }
             });
             deleteButton.setText("QUIT");
@@ -150,8 +167,7 @@ public class TaskDisplayFragment extends Fragment {
             deleteButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    selectedTask.participant.remove(currentuser);
-                    Toast.makeText(getActivity().getApplicationContext(), "participant " + currentuser + " is removed from project" + selectedTask.name, Toast.LENGTH_LONG).show();
+                    new ServerModifyTask().execute(selectedTask);
                 }
             });
         }
@@ -168,5 +184,55 @@ public class TaskDisplayFragment extends Fragment {
             return false;
         }
 
+    }
+
+    private class ServerModifyTask extends AsyncTask<Task, String, Void> {
+
+        @Override
+        protected Void doInBackground(Task... params) {
+            mClient.mod_task(mCurrentUser, params[0]);
+            publishProgress("Modify Success");
+            Intent i = new Intent(getActivity().getApplicationContext(), MainActivity.class);
+            startActivity(i);
+            return null;
+        }
+
+        @Override
+        protected void onProgressUpdate(String... values) {
+            Toast.makeText(getActivity().getApplicationContext(),values[0],Toast.LENGTH_LONG).show();
+        }
+
+    }
+
+    private class ServerDeleteTask extends AsyncTask<Task, String, Void> {
+
+        @Override
+        protected Void doInBackground(Task... params) {
+            mClient.del_task(mCurrentUser, params[0]);
+            publishProgress("Delete Success");
+            Intent i = new Intent(getActivity().getApplicationContext(), MainActivity.class);
+            startActivity(i);
+            return null;
+        }
+
+        @Override
+        protected void onProgressUpdate(String... values) {
+            Toast.makeText(getActivity().getApplicationContext(),values[0],Toast.LENGTH_LONG).show();
+        }
+    }
+
+    private class ServerUpdateProgress extends AsyncTask<Task, String, Void> {
+
+        @Override
+        protected Void doInBackground(Task... params) {
+            mClient.up_prog(mCurrentUser, params[0]);
+            publishProgress("Update Success");
+            return null;
+        }
+
+        @Override
+        protected void onProgressUpdate(String... values) {
+            Toast.makeText(getActivity().getApplicationContext(),values[0],Toast.LENGTH_LONG).show();
+        }
     }
 }

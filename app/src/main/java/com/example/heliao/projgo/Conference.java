@@ -17,7 +17,7 @@ public class Conference implements Serializable {
      */
     private static final long serialVersionUID = 6411148402757655234L;
     public String name,description,location,id, start_time_string, end_time_string, conferencedate;
-    public HashMap<String,String> participant = new HashMap<String,String>();
+    public HashMap<String,User> participant = new HashMap<String,User>();
     public ArrayList<String> participant_list = new ArrayList<String>();
     public User holder;
     public Date last_update,new_time,start_time,end_time,conDate;
@@ -40,6 +40,7 @@ public class Conference implements Serializable {
         new_time = new Date();
         last_update = new_time;
         id = n + last_update.toString();
+
         SimpleDateFormat sdf1 = new SimpleDateFormat("MM/dd/yyyy hh:mm");
         SimpleDateFormat sdf2 = new SimpleDateFormat("MM/dd/yyyy");
         try {

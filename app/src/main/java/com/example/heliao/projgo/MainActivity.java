@@ -149,6 +149,7 @@ public final class MainActivity extends AppCompatActivity implements FragmentCon
                             List<String> projects = new ArrayList<String>();
                             for(HashMap.Entry<String,Project> entry : dataManager.projectList.entrySet()){
                                 projects.add(entry.getValue().name);
+                                dataManager.eventList.put(entry.getValue().name,entry.getValue().id);
                             }
                             ArrayAdapter<String> adapter = new ArrayAdapter<String>(getApplicationContext(), R.layout.add_list_layout, R.id.addList_testview, projects);
                             projectlist.setAdapter(adapter);
@@ -167,7 +168,6 @@ public final class MainActivity extends AppCompatActivity implements FragmentCon
                                     //pass project name to ***AddEventFragment***
                                     String selected = ((TextView) view.findViewById(R.id.addList_testview)).getText().toString();
                                     bundle.putString("projectname", selected);
-
                                     FragmentManager taskManager = getFragmentManager();
                                     FragmentTransaction taskTranscation = taskManager.beginTransaction();
                                     taskTranscation.replace(R.id.content_frame, addEventFragment);

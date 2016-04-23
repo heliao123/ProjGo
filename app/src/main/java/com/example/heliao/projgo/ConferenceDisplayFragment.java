@@ -4,7 +4,9 @@ import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
@@ -14,6 +16,7 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.text.SimpleDateFormat;
 import java.util.HashMap;
 
 /**
@@ -26,13 +29,16 @@ public class ConferenceDisplayFragment extends Fragment {
     ServerDataManager dataManager;
     Conference selectedConference;
     String currentuser;
+    User mCurrentUser;
     AddConferenceFragment conferenceFragment;
     FragmentManager conferenceFragmentManager;
+    Client mClient = new Client();
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         SharedPreferences sharedPreferences = getActivity().getSharedPreferences("userinfo", Context.MODE_PRIVATE);
         currentuser = sharedPreferences.getString("nameKey", "miss");
+        mCurrentUser = dataManager.userList.get(currentuser);
 
         View rootview = (View) inflater.inflate(R.layout.fragment_conference_display, container, false);
         conferenceName = (TextView) rootview.findViewById(R.id.taskname_edittext_displayconference);
@@ -53,18 +59,27 @@ public class ConferenceDisplayFragment extends Fragment {
         String eventname = bundle.getString("eventname");
         dataManager = ServerDataManager.getInstance();
 
+        //eventname = dataManager.eventList.get(eventname);
         selectedConference = dataManager.conferenceList.get(eventname);
         conferenceName.setText(selectedConference.name);
         conferenceDescription.setText(selectedConference.description);
         // List<String> participant = new ArrayList<String>();
         String conParticipant = "";
-        for(HashMap.Entry<String,String> entry : selectedConference.participant.entrySet()){
-            conParticipant +=entry.getValue() +" ";
+        for(HashMap.Entry<String,User> entry : selectedConference.participant.entrySet()){
+            conParticipant +=entry.getValue().userId +" ";
         }
+        SimpleDateFormat sdf1 = new SimpleDateFormat("MM/dd/yyyy");
+        SimpleDateFormat sdf2 = new SimpleDateFormat("hh:mm");
+
+        String condate = sdf1.format(selectedConference.start_time);
+        String start = sdf2.format(selectedConference.start_time);
+        String end = sdf2.format(selectedConference.end_time);
+
+
         conferencePeople.setText(conParticipant);
-        conferenceStartTime.setText(selectedConference.start_time_string);
-        conferenceEndTime.setText(selectedConference.end_time_string);
-        conferencetDate.setText(selectedConference.conferencedate);
+        conferenceStartTime.setText(start);
+        conferenceEndTime.setText(end);
+        conferencetDate.setText(condate);
 
 
         final MainFragment mainFragment = new MainFragment();
@@ -122,6 +137,7 @@ public class ConferenceDisplayFragment extends Fragment {
                      *
                      *
                      */
+                    new ServerDeleteConference().execute(selectedConference);
                 }
             });
         } else {
@@ -149,6 +165,45 @@ public class ConferenceDisplayFragment extends Fragment {
             return false;
         }
 
+    }
+
+
+    private class ServerDeleteConference extends AsyncTask<Conference, String, Void> {
+
+        @Override
+        protected Void doInBackground(Conference... params) {
+
+            mClient.del_conf(mCurrentUser, params[0]);
+            publishProgress("Delete Success");
+            Intent i = new Intent(getActivity().getApplicationContext(), MainActivity.class);
+            startActivity(i);
+            return null;
+
+        }
+
+        @Override
+        protected void onProgressUpdate(String... values) {
+            Toast.makeText(getActivity().getApplicationContext(),values[0],Toast.LENGTH_LONG).show();
+        }
+    }
+
+    private class ServerModifyConference extends AsyncTask<Conference, String, Void> {
+
+        @Override
+        protected Void doInBackground(Conference... params) {
+
+            mClient.mod_conf(mCurrentUser, params[0]);
+            publishProgress("Modify Success");
+            Intent i = new Intent(getActivity().getApplicationContext(), MainActivity.class);
+            startActivity(i);
+            return null;
+
+        }
+
+        @Override
+        protected void onProgressUpdate(String... values) {
+            Toast.makeText(getActivity().getApplicationContext(),values[0],Toast.LENGTH_LONG).show();
+        }
     }
 
 

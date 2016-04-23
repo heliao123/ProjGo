@@ -4,6 +4,7 @@ import android.app.Fragment;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
@@ -14,6 +15,8 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Map;
 
@@ -22,7 +25,7 @@ import java.util.Map;
  */
 public class AddEventFragment extends Fragment {
     Button mdonebutton;
-    TextView mEventlabel,mAddParticipantButton,mPeopleDsiplay,mRemoveParticipant;
+    TextView mEventlabel, mAddParticipantButton, mPeopleDsiplay, mRemoveParticipant;
     EditText mEventName, mStartDate, mEndDate, mDescription, mPeople;
     Date addStartDate, addEndDate;
     String addEventName, addDescription, addPeople, tempStartDate, tempEndDate;
@@ -32,8 +35,10 @@ public class AddEventFragment extends Fragment {
     User currentUser;
     ServerDataManager dataManager;
     String currentUserName;
-    String modifyProject,modifyTask;
+    String modifyProject, modifyTask;
     Client mClient = new Client();
+    SimpleDateFormat sdf1 = new SimpleDateFormat("MM/dd/yyyy");
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -49,12 +54,12 @@ public class AddEventFragment extends Fragment {
 
         mAddParticipantButton = (TextView) rootview.findViewById(R.id.addParticipantButton);
         mPeopleDsiplay = (TextView) rootview.findViewById(R.id.con_people_textview_addParticipant);
-        mRemoveParticipant =(TextView) rootview.findViewById(R.id.removeParticipant_addevent);
+        mRemoveParticipant = (TextView) rootview.findViewById(R.id.removeParticipant_addevent);
 
         mAddParticipantButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mPeopleDsiplay.append(mPeople.getText().toString()+",");
+                mPeopleDsiplay.append(mPeople.getText().toString() + ",");
                 mPeople.setText("");
             }
         });
@@ -71,7 +76,7 @@ public class AddEventFragment extends Fragment {
                     if (people.lastIndexOf(",") == -1) {
                         mPeopleDsiplay.setText("");
                     } else {
-                        people = people.substring(0, people.lastIndexOf(",")+1);
+                        people = people.substring(0, people.lastIndexOf(",") + 1);
                         mPeopleDsiplay.setText(people);
                     }
                 } else {
@@ -81,10 +86,10 @@ public class AddEventFragment extends Fragment {
         });
 
 
-        DateTimePickDialog datepickDialogStartDate = new DateTimePickDialog(getActivity().getWindow().getContext(),mStartDate);
+        DateTimePickDialog datepickDialogStartDate = new DateTimePickDialog(getActivity().getWindow().getContext(), mStartDate);
         datepickDialogStartDate.showDatePickDialogOnClick();
 
-        DateTimePickDialog datepickDialogEndDate = new DateTimePickDialog(getActivity().getWindow().getContext(),mEndDate);
+        DateTimePickDialog datepickDialogEndDate = new DateTimePickDialog(getActivity().getWindow().getContext(), mEndDate);
         datepickDialogEndDate.showDatePickDialogOnClick();
 
 
@@ -92,36 +97,43 @@ public class AddEventFragment extends Fragment {
         final Bundle bundle = this.getArguments();
         eventtype = bundle.getString("eventtype");
         modifyProject = bundle.getString("modifyproject");
+        modifyProject = dataManager.eventList.get(modifyProject);
         modifyTask = bundle.getString("modifytask");
+        modifyTask = dataManager.eventList.get(modifyTask);
         mEventlabel.setText(eventtype);
 
         //Check if project needs to be modifyed
-        if(modifyProject!=null&&eventtype=="Project"){
+        if (modifyProject != null && eventtype == "Project") {
 
             Project modifyVersion = dataManager.projectList.get(modifyProject);
             mEventName.setText(modifyVersion.name);
             mDescription.setText(modifyVersion.description);
-            String par="";
-            for(Map.Entry<String,String> entry :modifyVersion.participant.entrySet()){
-                par = entry.getValue() +",";
+            String par = "";
+            for (Map.Entry<String, User> entry : modifyVersion.participant.entrySet()) {
+                par = entry.getValue().userId + ",";
             }
             mPeopleDsiplay.setText(par);
             //start date and end date
-            mStartDate.setText(modifyVersion.startdate);
-            mEndDate.setText(modifyVersion.enddate);
-        }else if(modifyTask!=null && eventtype=="Task"){
+            String start = sdf1.format(modifyVersion.start_time);
+            String end = sdf1.format(modifyVersion.end_time);
+            mStartDate.setText(start);
+            mEndDate.setText(end);
+        } else if (modifyTask != null && eventtype == "Task") {
 
             Task modifyVersion = dataManager.taskList.get(modifyTask);
+
             mEventName.setText(modifyVersion.name);
             mDescription.setText(modifyVersion.description);
-            String par="";
-            for(Map.Entry<String,String> entry :modifyVersion.participant.entrySet()){
-                par = entry.getValue() +",";
+            String par = "";
+            for (Map.Entry<String, User> entry : modifyVersion.participant.entrySet()) {
+                par = entry.getValue().userId + ",";
             }
             mPeopleDsiplay.setText(par);
             //start date and end date
-            mStartDate.setText(modifyVersion.start_time_string);
-            mEndDate.setText(modifyVersion.end_time_string);
+            String start = sdf1.format(modifyVersion.start_time);
+            String end = sdf1.format(modifyVersion.end_time);
+            mStartDate.setText(start);
+            mEndDate.setText(end);
         }
 
         //get userinfo from sharedpreferences
@@ -156,21 +168,40 @@ public class AddEventFragment extends Fragment {
                          *
                          */
                         //add project
-                        Project newproject = new Project(currentUser, addEventName, addDescription, tempStartDate, tempEndDate);
-                        String[] participants = addPeople.split(",");
-                        for (String name : participants) {
-                            newproject.participant.put(name, name);
-                            newproject.participant_list.add(name);
+                        Project newproject = null;
+                        if (modifyProject != null) {
+                            newproject = dataManager.projectList.get(modifyProject);
+                            try {
+                                newproject.start_time = sdf1.parse(tempStartDate);
+                                newproject.end_time = sdf1.parse(tempEndDate);
+                            } catch (ParseException e) {
+                                e.printStackTrace();
+                            }
+                            newproject.name = addEventName;
+                            String[] conParticipants = addPeople.split(",");
+                            for (String name : conParticipants) {
+                                newproject.participant_list.add(name);
+                            }
+                            newproject.description = addDescription;
+
+                        } else {
+                            newproject = new Project(currentUser, addEventName, addDescription, tempStartDate, tempEndDate);
+
+                            String[] conParticipants = addPeople.split(",");
+                            for (String name : conParticipants) {
+                                newproject.participant_list.add(name);
+                            }
                         }
+
                         //update current user
                         currentUser.project.put(addEventName, newproject);
-                        //currentUser.add_project(newproject);
+
                         //update ServerDataManager
                         dataManager.addProject(addEventName, newproject);
-                        if(modifyProject!=null&&eventtype=="Project"){
-                            mClient.mod_proj(currentUser,newproject);
-                        }else{
-                            mClient.new_proj(currentUser,newproject);
+                        if (modifyProject != null && eventtype == "Project") {
+                            new ServerModifyProject().execute(newproject);
+                        } else {
+                            new ServerAddProject().execute(newproject);
                         }
 
 
@@ -185,23 +216,43 @@ public class AddEventFragment extends Fragment {
                          *
                          */
                         currentProjectName = bundle.getString("projectname");
+                        currentProjectName = dataManager.eventList.get(currentProjectName);
                         Project selectedProject = dataManager.projectList.get(currentProjectName);
                         //add task
-                        Task newtask = new Task(selectedProject, addEventName, addDescription, tempStartDate, tempEndDate);
-                        String[] taskParticipants = addPeople.split(",");
-                        for (String name : taskParticipants) {
-                            newtask.participant.put(name, name);
-                            newtask.participant_list.add(name);
+                        Task newtask = null;
+                        if (modifyTask != null) {
+                            newtask = dataManager.taskList.get(modifyTask);
+                            try {
+                                newtask.start_time = sdf1.parse(tempStartDate);
+                                newtask.end_time = sdf1.parse(tempEndDate);
+                            } catch (ParseException e) {
+                                e.printStackTrace();
+                            }
+                            newtask.name = addEventName;
+                            String[] conParticipants = addPeople.split(",");
+                            for (String name : conParticipants) {
+                                newtask.participant_list.add(name);
+                            }
+                            newtask.description = addDescription;
+
+                        } else {
+                            newtask = new Task(selectedProject, addEventName, addDescription, tempStartDate, tempEndDate);
+
+                            String[] conParticipants = addPeople.split(",");
+                            for (String name : conParticipants) {
+                                newtask.participant_list.add(name);
+                            }
                         }
+
                         //update project
-                       // selectedProject.task.put(addEventName, newtask);
+                        // selectedProject.task.put(addEventName, newtask);
                         //update ServerDataManager
                         dataManager.addTask(addEventName, newtask);
 
-                        if(modifyProject!=null&&eventtype=="Task"){
-                           mClient.mod_task(currentUser, newtask);
-                        }else{
-                           mClient.new_task(currentUser, newtask);
+                        if (modifyTask != null && eventtype == "Task") {
+                            new ServerModifyTask().execute(newtask);
+                        } else {
+                            new ServerAddTask().execute(newtask);
                         }
 
 
@@ -209,9 +260,93 @@ public class AddEventFragment extends Fragment {
 
                 }
 
-                startActivity(i);}
+                startActivity(i);
+            }
         });
         return rootview;
     }
+
+
+    private class ServerAddProject extends AsyncTask<Project, String, Void> {
+
+        @Override
+        protected Void doInBackground(Project... params) {
+            mClient.new_proj(currentUser, params[0]);
+
+            return null;
+        }
+    }
+
+    private class ServerModifyProject extends AsyncTask<Project, String, Void> {
+
+        @Override
+        protected Void doInBackground(Project... params) {
+            mClient.mod_proj(currentUser, params[0]);
+            return null;
+        }
+    }
+
+    private class ServerDeleteProject extends AsyncTask<Project, String, Void> {
+
+        @Override
+        protected Void doInBackground(Project... params) {
+            mClient.del_proj(currentUser, params[0]);
+            publishProgress("Delete Success");
+            return null;
+        }
+
+        @Override
+        protected void onProgressUpdate(String... values) {
+            Toast.makeText(getActivity().getApplicationContext(), values[0], Toast.LENGTH_LONG).show();
+        }
+    }
+
+    private class ServerAddTask extends AsyncTask<Task, String, Void> {
+
+        @Override
+        protected Void doInBackground(Task... params) {
+            mClient.new_task(currentUser, params[0]);
+            publishProgress("Add Success");
+            return null;
+        }
+
+        @Override
+        protected void onProgressUpdate(String... values) {
+            Toast.makeText(getActivity().getApplicationContext(), values[0], Toast.LENGTH_LONG).show();
+        }
+
+    }
+
+    private class ServerModifyTask extends AsyncTask<Task, String, Void> {
+
+        @Override
+        protected Void doInBackground(Task... params) {
+            mClient.mod_task(currentUser, params[0]);
+            publishProgress("Modify Success");
+            return null;
+        }
+
+        @Override
+        protected void onProgressUpdate(String... values) {
+            Toast.makeText(getActivity().getApplicationContext(), values[0], Toast.LENGTH_LONG).show();
+        }
+
+    }
+
+    private class ServerDeleteTask extends AsyncTask<Task, String, Void> {
+
+        @Override
+        protected Void doInBackground(Task... params) {
+            mClient.del_task(currentUser, params[0]);
+            publishProgress("Delete Success");
+            return null;
+        }
+
+        @Override
+        protected void onProgressUpdate(String... values) {
+            Toast.makeText(getActivity().getApplicationContext(), values[0], Toast.LENGTH_LONG).show();
+        }
+    }
+
 
 }

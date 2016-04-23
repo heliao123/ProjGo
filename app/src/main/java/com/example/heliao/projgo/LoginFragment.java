@@ -96,7 +96,7 @@ public class LoginFragment extends Fragment {
                 Intent i = new Intent(getActivity().getApplicationContext(), MainActivity.class);
                 startActivity(i);
             } else{
-                publishProgress("User name or passwork is incorrect~!");
+                publishProgress("User name or password is incorrect~!");
                 //Toast.makeText(getActivity().getApplicationContext(), "User name or passwork is incorrect~!", Toast.LENGTH_LONG).show();
         }
             return null;

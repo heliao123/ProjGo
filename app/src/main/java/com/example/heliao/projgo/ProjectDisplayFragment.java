@@ -4,7 +4,9 @@ import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
@@ -14,6 +16,7 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.text.SimpleDateFormat;
 import java.util.HashMap;
 
 /**
@@ -29,12 +32,15 @@ public class ProjectDisplayFragment extends Fragment {
     FragmentManager projectFragmentManager;
     //SharedPreferences sharedPreferences = getActivity().getSharedPreferences("userinfo", Context.MODE_PRIVATE);
     String currentuser;
+    Client mClient = new Client();
+    User mCurrentUser;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         SharedPreferences sharedPreferences = getActivity().getSharedPreferences("userinfo", Context.MODE_PRIVATE);
         currentuser = sharedPreferences.getString("nameKey", "miss");
+        mCurrentUser = dataManager.userList.get(currentuser);
 
 
         View rootview = (View) inflater.inflate(R.layout.fragment_project_display, container, false);
@@ -57,17 +63,23 @@ public class ProjectDisplayFragment extends Fragment {
         String eventname = bundle.getString("eventname");
         dataManager = ServerDataManager.getInstance();
 
+        eventname = dataManager.eventList.get(eventname);
         selectedProject = dataManager.projectList.get(eventname);
         eventName.setText(selectedProject.name);
         eventDescription.setText(selectedProject.description);
         // List<String> participant = new ArrayList<String>();
         String participant = "";
-        for (HashMap.Entry<String, String> entry : selectedProject.participant.entrySet()) {
-            participant += entry.getValue() + " ";
+        for (HashMap.Entry<String, User> entry : selectedProject.participant.entrySet()) {
+            participant += entry.getValue().userId + " ";
         }
+
+        SimpleDateFormat sdf1 = new SimpleDateFormat("MM/dd/yyyy");
+        String start = sdf1.format(selectedProject.start_time);
+        String end = sdf1.format(selectedProject.end_time);
+
         eventPeople.setText(participant);
-        eventStartDate.setText(selectedProject.startdate);
-        eventEndDate.setText(selectedProject.enddate);
+        eventStartDate.setText(start);
+        eventEndDate.setText(end);
 
         final MainFragment mainFragment = new MainFragment();
 
@@ -101,6 +113,7 @@ public class ProjectDisplayFragment extends Fragment {
                     FragmentTransaction pft = projectFragmentManager.beginTransaction();
                     pft.replace(R.id.content_frame, projectFragment);
                     pft.commit();
+                   //new ServerModifyProject().execute(selectedProject);
                 }
             });
             /**DELETE BUTTON*/
@@ -122,6 +135,7 @@ public class ProjectDisplayFragment extends Fragment {
                      *
                      *
                      */
+                    new ServerDeleteProject().execute(selectedProject);
                 }
             });
         } else {
@@ -133,8 +147,7 @@ public class ProjectDisplayFragment extends Fragment {
                 deleteButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        selectedProject.participant.remove(currentuser);
-                        Toast.makeText(getActivity().getApplicationContext(),"participant "+currentuser+" is removed from project" + selectedProject.name,Toast.LENGTH_LONG).show();
+                       new ServerModifyProject().execute(selectedProject);
                     }
                 });
         }
@@ -150,6 +163,32 @@ public class ProjectDisplayFragment extends Fragment {
         }
 
     }
+    private class ServerModifyProject extends AsyncTask<Project, String, Void> {
 
+        @Override
+        protected Void doInBackground(Project... params) {
+            mClient.mod_proj(mCurrentUser, params[0]);
+            Intent i = new Intent(getActivity().getApplicationContext(), MainActivity.class);
+            startActivity(i);
+            return null;
+        }
+    }
+
+    private class ServerDeleteProject extends AsyncTask<Project, String, Void> {
+
+        @Override
+        protected Void doInBackground(Project... params) {
+            mClient.del_proj(mCurrentUser, params[0]);
+            publishProgress("Delete Success");
+            Intent i = new Intent(getActivity().getApplicationContext(), MainActivity.class);
+            startActivity(i);
+            return null;
+        }
+
+        @Override
+        protected void onProgressUpdate(String... values) {
+            Toast.makeText(getActivity().getApplicationContext(),values[0],Toast.LENGTH_LONG).show();
+        }
+    }
 
 }

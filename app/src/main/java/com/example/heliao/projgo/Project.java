@@ -16,7 +16,7 @@ public class Project implements Serializable {
      */
     private static final long serialVersionUID = -5997969113587524502L;
     public String name,description,id, startdate, enddate;
-    public HashMap<String,String> participant = new HashMap<String,String>();
+    public HashMap<String,User> participant = new HashMap<String,User>();
     public HashMap<String,Task> task = new HashMap<String,Task>();
     public ArrayList<String> participant_list = new ArrayList<String>();
     public Date last_update,start_time,end_time,new_time;
@@ -39,8 +39,8 @@ public class Project implements Serializable {
         id = n+"_"+last_update.getTime();
         SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
         try {
-            start_time = sdf.parse(sd);
-            end_time = sdf.parse(ed);
+            start_time = sdf.parse(startdate);
+            end_time = sdf.parse(enddate);
         }catch (ParseException e){
             e.printStackTrace();
         }

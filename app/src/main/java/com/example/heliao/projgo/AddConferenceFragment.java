@@ -15,6 +15,8 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Map;
 
@@ -35,6 +37,9 @@ public class AddConferenceFragment extends Fragment {
     String currentUserName;
     String modifyconference;
     Client mClient = new Client();
+    SimpleDateFormat sdf1 = new SimpleDateFormat("MM/dd/yyyy");
+    SimpleDateFormat sdf2 = new SimpleDateFormat("hh:mm");
+    SimpleDateFormat sdf3 = new SimpleDateFormat("MM/dd/yyyy hh:mm");
 
     @Nullable
     @Override
@@ -74,7 +79,7 @@ public class AddConferenceFragment extends Fragment {
                     if (people.lastIndexOf(",") == -1) {
                         mPeopleDsiplay.setText("");
                     } else {
-                        people = people.substring(0, people.lastIndexOf(",")+1);
+                        people = people.substring(0, people.lastIndexOf(",") + 1);
                         mPeopleDsiplay.setText(people);
                     }
                 } else {
@@ -98,6 +103,7 @@ public class AddConferenceFragment extends Fragment {
         final Bundle bundle = this.getArguments();
         eventtype = bundle.getString("eventtype");
         modifyconference = bundle.getString("modifyconference");
+        modifyconference = dataManager.eventList.get(modifyconference);
         mEventlabel.setText(eventtype);
 
         if (modifyconference != null && eventtype == "Conference") {
@@ -110,15 +116,20 @@ public class AddConferenceFragment extends Fragment {
             Conference modifyVersion = dataManager.conferenceList.get(modifyconference);
             mEventName.setText(modifyVersion.name);
             mDescription.setText(modifyVersion.description);
-            mConferDate.setText(modifyVersion.conferencedate.toString());
+
+            String condate = sdf1.format(modifyVersion.start_time);
+            String start = sdf2.format(modifyVersion.start_time);
+            String end = sdf2.format(modifyVersion.end_time);
+
+            mConferDate.setText(condate);
             String par = "";
-            for (Map.Entry<String, String> entry : modifyVersion.participant.entrySet()) {
-                par = entry.getValue() + ",";
+            for (Map.Entry<String, User> entry : modifyVersion.participant.entrySet()) {
+                par = entry.getValue().userId + ",";
             }
             mPeopleDsiplay.setText(par);
             //start date and end date
-            mStartTime.setText(modifyVersion.start_time_string);
-            mEndTime.setText(modifyVersion.end_time_string);
+            mStartTime.setText(start);
+            mEndTime.setText(end);
         }
 
         //get userinfo from sharedpreferences
@@ -142,12 +153,34 @@ public class AddConferenceFragment extends Fragment {
                 tempEndTime = mEndTime.getText().toString();
                 conDate = mConferDate.getText().toString();
                 //add conference
-                Conference newconference = new Conference(currentUser, addEventName, addDescription, tempStartTime, tempEndTime, conDate);
+                Conference newconference = null;
+                if (modifyconference != null) {
+                    newconference = dataManager.conferenceList.get(modifyconference);
 
-                String[] conParticipants = addPeople.split(",");
-                for (String name : conParticipants) {
-                    newconference.participant.put(name, name);
-                    newconference.participant_list.add(name);
+                    try {
+                        String newStartTime = conDate + " "+tempStartTime;
+                        String newEndTime = conDate + " " + tempEndTime;
+                        newconference.start_time = sdf3.parse(newStartTime);
+                        newconference.end_time = sdf3.parse(newEndTime);
+
+
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                    }
+                    newconference.name = addEventName;
+                    String[] conParticipants = addPeople.split(",");
+                    for (String name : conParticipants) {
+                        newconference.participant_list.add(name);
+                    }
+                    newconference.description = addDescription;
+
+                } else {
+                    newconference = new Conference(currentUser, addEventName, addDescription, tempStartTime, tempEndTime, conDate);
+
+                    String[] conParticipants = addPeople.split(",");
+                    for (String name : conParticipants) {
+                        newconference.participant_list.add(name);
+                    }
                 }
                 //update user
                 currentUser.conference.put(addEventName, newconference);
@@ -160,11 +193,11 @@ public class AddConferenceFragment extends Fragment {
                  * ADD  to the Server
                  * ADD  to the Server
                  */
-                if (modifyconference != null && eventtype == "Conference"){
+                if (modifyconference != null && eventtype == "Conference") {
                     new ServerModifyConference().execute(newconference);
-                }else{
+                } else {
                     new ServerAddConference().execute(newconference);
-               }
+                }
 
                 startActivity(i);
 
@@ -180,7 +213,7 @@ public class AddConferenceFragment extends Fragment {
         @Override
         protected Void doInBackground(Conference... params) {
 
-            mClient.new_conf(currentUser,params[0]);
+            mClient.new_conf(currentUser, params[0]);
             return null;
 
         }
@@ -196,4 +229,5 @@ public class AddConferenceFragment extends Fragment {
 
         }
     }
+
 }

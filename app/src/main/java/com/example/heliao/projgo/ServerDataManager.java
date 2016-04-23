@@ -10,6 +10,7 @@ public class ServerDataManager {
     static public HashMap<String,Project> projectList= new HashMap<String, Project>();
     static public HashMap<String,Task> taskList = new HashMap<String, Task>();;
     static public HashMap<String,Conference> conferenceList = new HashMap<String, Conference>();;
+    static public HashMap<String, String> eventList = new HashMap<String,String>();
     private static ServerDataManager sInstance;
 
     public void addUser (String username, User newuser){
