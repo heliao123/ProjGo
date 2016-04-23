@@ -33,7 +33,7 @@ public class AddEventFragment extends Fragment {
     ServerDataManager dataManager;
     String currentUserName;
     String modifyProject,modifyTask;
-    Client mClient;
+    Client mClient = new Client();
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -199,9 +199,9 @@ public class AddEventFragment extends Fragment {
                         dataManager.addTask(addEventName, newtask);
 
                         if(modifyProject!=null&&eventtype=="Task"){
-                            mClient.mod_task(currentUser, newtask);
+                           mClient.mod_task(currentUser, newtask);
                         }else{
-                            mClient.new_task(currentUser, newtask);
+                           mClient.new_task(currentUser, newtask);
                         }
 
 

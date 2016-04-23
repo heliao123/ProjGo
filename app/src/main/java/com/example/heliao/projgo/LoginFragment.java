@@ -36,7 +36,7 @@ public class LoginFragment extends Fragment {
     SharedPreferences sharedPreferences;
     Editor editor;
     ServerDataManager dataManager;
-    Client mClient;
+    Client mClient = new Client();
     User currentuser;
 
     @Override
@@ -78,41 +78,33 @@ public class LoginFragment extends Fragment {
                 //mClient.log_in(currentuser);
 //                    new Thread(new ServerLogIn()).start();
                 new ServerLogin().execute();
-                if (dataManager.userList.containsKey(username) && dataManager.userList.get(username).password == password) {
-                    // put username and password in sharedpreferences
-                    editor.putString("nameKey", username);
-                    editor.putString("passwordKey", password);
-                    editor.commit();
-                    //create intent and bundle, then sent it to **MainActivity**
-                    Intent i = new Intent(getActivity().getApplicationContext(), MainActivity.class);
-                    startActivity(i);
-                } else
-                    Toast.makeText(getActivity().getApplicationContext(), "User name or passwork is incorrect~!", Toast.LENGTH_LONG).show();
             }
         });
-        //} catch (NullPointerException e) {
-        //     System.out.print(e.toString());
-        //}
         return rootview;
     }
 
-    //    private class ServerLogIn implements Runnable{
-//        @Override
-//        public void run() {
-//            handler.post(new Runnable() {
-//                @Override
-//                public void run() {
-//                    mClient.log_in(currentuser);
-//                }
-//            });
-//
-//        }
-//    }
-    private class ServerLogin extends AsyncTask<Void, Void, Void> {
+    private class ServerLogin extends AsyncTask<Void, String, Void> {
         @Override
         protected Void doInBackground(Void... params) {
             mClient.log_in(currentuser);
+            if (dataManager.userList.containsKey(username) && dataManager.userList.get(username).password.equals(password)) {
+                // put username and password in sharedpreferences
+                editor.putString("nameKey", username);
+                editor.putString("passwordKey", password);
+                editor.commit();
+                //create intent and bundle, then sent it to **MainActivity**
+                Intent i = new Intent(getActivity().getApplicationContext(), MainActivity.class);
+                startActivity(i);
+            } else{
+                publishProgress("User name or passwork is incorrect~!");
+                //Toast.makeText(getActivity().getApplicationContext(), "User name or passwork is incorrect~!", Toast.LENGTH_LONG).show();
+        }
             return null;
+        }
+
+        @Override
+        protected void onProgressUpdate(String... values) {
+            Toast.makeText(getActivity().getApplicationContext(), values[0], Toast.LENGTH_LONG).show();
         }
     }
 }

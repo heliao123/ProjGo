@@ -40,12 +40,12 @@ public class Conference implements Serializable {
         new_time = new Date();
         last_update = new_time;
         id = n + last_update.toString();
-        SimpleDateFormat sdfdate = new SimpleDateFormat("MM/dd/yyyy hh:mm:ss");
-        SimpleDateFormat sdftime = new SimpleDateFormat("MM/dd/yyyy hh:mm:ss");
+        SimpleDateFormat sdf1 = new SimpleDateFormat("MM/dd/yyyy hh:mm");
+        SimpleDateFormat sdf2 = new SimpleDateFormat("MM/dd/yyyy");
         try {
-            start_time = sdftime.parse(st);
-            end_time = sdftime.parse(et);
-            conDate = sdfdate.parse(date);
+            start_time = sdf1.parse(start_time_string);
+            end_time = sdf1.parse(end_time_string);
+            conDate = sdf2.parse(date);
         }catch (ParseException e){
             e.printStackTrace();
         }

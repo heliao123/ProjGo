@@ -4,6 +4,7 @@ import android.app.Fragment;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
@@ -33,7 +34,7 @@ public class AddConferenceFragment extends Fragment {
     ServerDataManager dataManager;
     String currentUserName;
     String modifyconference;
-    Client mClient;
+    Client mClient = new Client();
 
     @Nullable
     @Override
@@ -160,9 +161,10 @@ public class AddConferenceFragment extends Fragment {
                  * ADD  to the Server
                  */
                 if (modifyconference != null && eventtype == "Conference"){
-                    mClient.mod_conf(currentUser,newconference);
+                    new ServerModifyConference().execute(newconference);
                 }else{
-                mClient.new_conf(currentUser,newconference);}
+                    new ServerAddConference().execute(newconference);
+               }
 
                 startActivity(i);
 
@@ -171,5 +173,27 @@ public class AddConferenceFragment extends Fragment {
 
 
         return rootview;
+    }
+
+    private class ServerAddConference extends AsyncTask<Conference, Void, Void> {
+
+        @Override
+        protected Void doInBackground(Conference... params) {
+
+            mClient.new_conf(currentUser,params[0]);
+            return null;
+
+        }
+    }
+
+    private class ServerModifyConference extends AsyncTask<Conference, Void, Void> {
+
+        @Override
+        protected Void doInBackground(Conference... params) {
+
+            mClient.mod_conf(currentUser, params[0]);
+            return null;
+
+        }
     }
 }

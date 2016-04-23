@@ -6,6 +6,7 @@ import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.os.Bundle;
+import android.text.format.DateUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,6 +18,7 @@ import android.widget.TextView;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -131,9 +133,21 @@ public class TaskListFragment extends Fragment {
 
         for (HashMap.Entry<String, Conference> entry : dataManager.conferenceList.entrySet()) {
             try {
-                Date conDate = df.parse(entry.getValue().conferencedate);
+               // Date conDate = df.parse(entry.getValue().start_time);
+                Date startDate = entry.getValue().start_time;
+                if(startDate !=null) {
+                    Calendar cal = Calendar.getInstance();
+                    cal.setTime(startDate);
+                    cal.set(Calendar.HOUR_OF_DAY, 0);
+                    cal.set(Calendar.MINUTE, 0);
+                    cal.set(Calendar.SECOND, 0);
+                    cal.set(Calendar.MILLISECOND, 0);
+                    startDate = cal.getTime();
+                }
                 Date currentDate = df.parse(date);
-                if (currentDate.equals(conDate)) {
+
+
+                if (currentDate.equals(startDate)) {
                     tasks.add(entry.getValue().name);
                 }
             } catch (ParseException e) {

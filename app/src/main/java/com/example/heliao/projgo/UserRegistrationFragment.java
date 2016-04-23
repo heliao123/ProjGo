@@ -3,7 +3,6 @@ package com.example.heliao.projgo;
 import android.app.Fragment;
 import android.content.Context;
 import android.content.Intent;
-
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -28,11 +27,12 @@ public class UserRegistrationFragment extends Fragment {
     Client mClient;
     SharedPreferences sharedPreferences;
     SharedPreferences.Editor editor;
+
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View rootview =(View)inflater.inflate(R.layout.fragment_user_register,container,false);
-        mUsername =(EditText)rootview.findViewById(R.id.userid_editTextt_user_register);
-        mUserpassword= (EditText)rootview.findViewById(R.id.password_editText_user_register);
-        mDone = (Button)rootview.findViewById(R.id.done_Button_user_register);
+        View rootview = (View) inflater.inflate(R.layout.fragment_user_register, container, false);
+        mUsername = (EditText) rootview.findViewById(R.id.userid_editTextt_user_register);
+        mUserpassword = (EditText) rootview.findViewById(R.id.password_editText_user_register);
+        mDone = (Button) rootview.findViewById(R.id.done_Button_user_register);
 
         //create sharedpreferences
         sharedPreferences = getActivity().getSharedPreferences("userinfo", Context.MODE_PRIVATE);
@@ -42,18 +42,18 @@ public class UserRegistrationFragment extends Fragment {
                 //add new user as the user object
                 username = mUsername.getText().toString();
                 password = mUserpassword.getText().toString();
-                newuser = new User(username,password);
+                newuser = new User(username, password);
                 ServerDataManager dataManager = ServerDataManager.getInstance();
-                dataManager.addUser(username,newuser);
+                dataManager.addUser(username, newuser);
 
                 //save user info in the sharedpreferences
                 editor = sharedPreferences.edit();
-                editor.putString("nameKey",username);
-                editor.putString("passwordKey",password);
+                editor.putString("nameKey", username);
+                editor.putString("passwordKey", password);
                 editor.commit();
 
                 // pass user info to the Main Activity
-                Intent i = new Intent(getActivity().getApplicationContext(),MainActivity.class);
+                Intent i = new Intent(getActivity().getApplicationContext(), MainActivity.class);
                 Bundle bundle = new Bundle();
                 bundle.putString("username", username);
                 bundle.putString("password", password);
@@ -71,10 +71,11 @@ public class UserRegistrationFragment extends Fragment {
 
         @Override
         protected Void doInBackground(Void... params) {
+            mClient = new Client();
             mClient.reg(newuser);
-
             return null;
 
         }
     }
 }
+
