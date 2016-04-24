@@ -138,6 +138,8 @@ public class ConferenceDisplayFragment extends Fragment {
                      *
                      */
                     new ServerDeleteConference().execute(selectedConference);
+                    Intent i = new Intent(getActivity().getApplicationContext(), MainActivity.class);
+                    startActivity(i);
                 }
             });
         } else {
@@ -149,8 +151,10 @@ public class ConferenceDisplayFragment extends Fragment {
             deleteButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    selectedConference.participant.remove(currentuser);
+                   new ServerModifyConference().execute(selectedConference);
                     Toast.makeText(getActivity().getApplicationContext(), "participant " + currentuser + " is removed from project" + selectedConference.name, Toast.LENGTH_LONG).show();
+                    Intent i = new Intent(getActivity().getApplicationContext(), MainActivity.class);
+                    startActivity(i);
                 }
             });
         }
@@ -175,8 +179,6 @@ public class ConferenceDisplayFragment extends Fragment {
 
             mClient.del_conf(mCurrentUser, params[0]);
             publishProgress("Delete Success");
-            Intent i = new Intent(getActivity().getApplicationContext(), MainActivity.class);
-            startActivity(i);
             return null;
 
         }
@@ -194,8 +196,6 @@ public class ConferenceDisplayFragment extends Fragment {
 
             mClient.mod_conf(mCurrentUser, params[0]);
             publishProgress("Modify Success");
-            Intent i = new Intent(getActivity().getApplicationContext(), MainActivity.class);
-            startActivity(i);
             return null;
 
         }

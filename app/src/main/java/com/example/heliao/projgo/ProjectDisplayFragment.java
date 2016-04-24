@@ -95,7 +95,6 @@ public class ProjectDisplayFragment extends Fragment {
 
             }
         });
-
         if (isProjectOwner(selectedProject.holder)) {
             /**MODIFY BUTTON*/
             /**MODIFY BUTTON*/
@@ -136,6 +135,8 @@ public class ProjectDisplayFragment extends Fragment {
                      *
                      */
                     new ServerDeleteProject().execute(selectedProject);
+                    Intent i = new Intent(getActivity().getApplicationContext(), MainActivity.class);
+                    startActivity(i);
                 }
             });
         } else {
@@ -148,6 +149,8 @@ public class ProjectDisplayFragment extends Fragment {
                     @Override
                     public void onClick(View v) {
                        new ServerModifyProject().execute(selectedProject);
+                       Intent i = new Intent(getActivity().getApplicationContext(), MainActivity.class);
+                        startActivity(i);
                     }
                 });
         }
@@ -168,8 +171,6 @@ public class ProjectDisplayFragment extends Fragment {
         @Override
         protected Void doInBackground(Project... params) {
             mClient.mod_proj(mCurrentUser, params[0]);
-            Intent i = new Intent(getActivity().getApplicationContext(), MainActivity.class);
-            startActivity(i);
             return null;
         }
     }
@@ -180,8 +181,6 @@ public class ProjectDisplayFragment extends Fragment {
         protected Void doInBackground(Project... params) {
             mClient.del_proj(mCurrentUser, params[0]);
             publishProgress("Delete Success");
-            Intent i = new Intent(getActivity().getApplicationContext(), MainActivity.class);
-            startActivity(i);
             return null;
         }
 

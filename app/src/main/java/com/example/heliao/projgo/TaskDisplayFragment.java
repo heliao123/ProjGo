@@ -146,6 +146,8 @@ public class TaskDisplayFragment extends Fragment {
                      *
                      */
                     new ServerDeleteTask().execute(selectedTask);
+                    Intent i = new Intent(getActivity().getApplicationContext(), MainActivity.class);
+                    startActivity(i);
                 }
             });
         } else {
@@ -168,6 +170,8 @@ public class TaskDisplayFragment extends Fragment {
                 @Override
                 public void onClick(View v) {
                     new ServerModifyTask().execute(selectedTask);
+                    Intent i = new Intent(getActivity().getApplicationContext(), MainActivity.class);
+                    startActivity(i);
                 }
             });
         }
@@ -192,8 +196,6 @@ public class TaskDisplayFragment extends Fragment {
         protected Void doInBackground(Task... params) {
             mClient.mod_task(mCurrentUser, params[0]);
             publishProgress("Modify Success");
-            Intent i = new Intent(getActivity().getApplicationContext(), MainActivity.class);
-            startActivity(i);
             return null;
         }
 
@@ -210,8 +212,6 @@ public class TaskDisplayFragment extends Fragment {
         protected Void doInBackground(Task... params) {
             mClient.del_task(mCurrentUser, params[0]);
             publishProgress("Delete Success");
-            Intent i = new Intent(getActivity().getApplicationContext(), MainActivity.class);
-            startActivity(i);
             return null;
         }
 
